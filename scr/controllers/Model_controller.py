@@ -64,9 +64,10 @@ class ModelController():
         activation_map = self.cam_extractor(self.output.squeeze(0).argmax().item(), self.output)
         result = overlay_mask(to_pil_image(self.rgbimage), to_pil_image(activation_map, mode='F'), alpha=0.7)
         img_result = np.array(result)
-        cv2.imshow('Result',img_result)
-        cv2.waitKey(0) 
-        cv2.destroyAllWindows()   
+        # cv2.imshow('Result',img_result)
+        # cv2.waitKey(0) 
+        # cv2.destroyAllWindows()   
+        return img_result,self.prediction
         
     
 
