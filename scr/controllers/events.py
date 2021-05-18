@@ -21,6 +21,7 @@ class Events():
         self.window.pushload.clicked.connect(self.load_image)
         # self.window.pushButtonLoad.clicked.connect(self.load_image)
         self.window.pushButtonRun.clicked.connect(self.evaluate_image)
+        
     def load_image(self):
         """
         Load and display the coresponding image

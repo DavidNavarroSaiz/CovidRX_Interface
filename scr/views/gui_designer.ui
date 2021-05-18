@@ -44,7 +44,7 @@
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <widget class="QPushButton" name="pushButtonPlay">
+     <widget class="QPushButton" name="SaveButton">
       <property name="geometry">
        <rect>
         <x>30</x>
@@ -146,7 +146,7 @@
      <rect>
       <x>70</x>
       <y>500</y>
-      <width>141</width>
+      <width>171</width>
       <height>41</height>
      </rect>
     </property>
@@ -163,9 +163,9 @@
    <widget class="QPushButton" name="pushButtonRun">
     <property name="geometry">
      <rect>
-      <x>320</x>
+      <x>370</x>
       <y>500</y>
-      <width>271</width>
+      <width>221</width>
       <height>41</height>
      </rect>
     </property>
@@ -186,17 +186,30 @@
      <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButtonLoad">
+   <widget class="QPushButton" name="HelpButton">
     <property name="geometry">
      <rect>
-      <x>830</x>
+      <x>900</x>
       <y>500</y>
-      <width>141</width>
-      <height>41</height>
+      <width>91</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
      <string>Help</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="settings">
+    <property name="geometry">
+     <rect>
+      <x>780</x>
+      <y>500</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Settings</string>
     </property>
    </widget>
   </widget>
