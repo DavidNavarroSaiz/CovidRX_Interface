@@ -1,8 +1,8 @@
-from views.pyprueba import *
+from views.gui_designer_ui import *
 from PySide2.QtWidgets import QApplication,QWidget,QFileDialog 
 from PySide2.QtGui import QIcon , QPixmap 
 import sys
-
+from PySide2 import QtWidgets
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
