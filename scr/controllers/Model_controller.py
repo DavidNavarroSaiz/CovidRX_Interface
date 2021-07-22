@@ -7,6 +7,9 @@ from matplotlib import pyplot as plt
 from torchcam.utils import overlay_mask
 from torchcam.cams import SmoothGradCAMpp,XGradCAM,SSCAM
 from torchvision.transforms.functional import normalize, resize, to_pil_image
+from torchvision.models.vgg import model_urls
+
+model_urls['vgg19'] = model_urls['vgg19'].replace('https://', 'http://')
 
 class ModelController():
     """
@@ -18,12 +21,13 @@ class ModelController():
         initialize the model 
         """
         pass
+    
     def load_model(self,path):
         """
         Load trained model
         """
         self.model = torchvision.models.vgg19(pretrained=True)
-        # self.model = torch.nn.Linear(in_features=1920, out_features=3)
+        # self.model.classifier = torch.nn.Linear(in_features=1920, out_features=3)
         self.model.classifier[6]= torch.nn.Linear(in_features=4096, out_features=3)
         self.model.to('cpu')
         self.model.load_state_dict(torch.load(path, map_location=torch.device('cpu')),strict=False)

@@ -2,6 +2,7 @@
 from PySide2 import QtGui, QtWidgets, QtCore
 import numpy as np
 import cv2
+import os
 from controllers.Model_controller import ModelController
 class Events():
     """
@@ -9,8 +10,8 @@ class Events():
 
     """
 
-    def __init__(self, mainWidget):
-        self.window = mainWidget
+    def __init__(self, mainWindow):
+        self.window = mainWindow.window
         self.connectButtons()
 
 
@@ -21,6 +22,7 @@ class Events():
         self.window.pushload.clicked.connect(self.load_image)
         # self.window.pushButtonLoad.clicked.connect(self.load_image)
         self.window.pushButtonRun.clicked.connect(self.evaluate_image)
+        self.window.SaveButton.clicked.connect(self.save_image)
         
     def load_image(self):
         """
@@ -46,8 +48,8 @@ class Events():
         Evaluate the image using CNN
 
         """
-                       
-        path_model = "resources/saved_models/vgg19.pt"
+        a = os.path.abspath('')               
+        path_model = a+"\\scr\\resources\\saved_models\\vgg19.pt"
         controller = ModelController()
         controller.load__transformed_image( self.filename)
         controller.load_model(path_model)
@@ -56,7 +58,12 @@ class Events():
         h,w,z = np.shape(result)
         print(np.shape(result))
         QResult = QtGui.QImage(result.data, h, w, 3*h, QtGui.QImage.Format_RGB888)  
-        imagePixmap_result = QtGui.QPixmap.fromImage(QResult)
-        self.window.label_5.setPixmap(imagePixmap_result)
+        self.imagePixmap_result = QtGui.QPixmap.fromImage(QResult)
+        self.window.label_5.setPixmap(self.imagePixmap_result)
         self.window.label_5.setScaledContents(True)  
         self.window.label.setText(str(prediction))
+
+    def save_image(self):
+        self.filename,_ = QtWidgets.QFileDialog.getSaveFileName(None,"Save image file", "image.png","image files(*.jpg *.jpeg *.png)")
+        self.imagePixmap_result.save(self.filename)
+        

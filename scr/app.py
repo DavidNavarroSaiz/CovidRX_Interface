@@ -1,7 +1,4 @@
 from controllers.Model_controller import ModelController
-
-
-
 from PySide2 import QtWidgets, QtGui
 import sys
 import os
@@ -32,7 +29,7 @@ if __name__ == '__main__':
     app = QtWidgets.QApplication([])
     window = MainWindow()
     controller = Events(window)
-    window.show()
+    window.window.show()
     app.exec_()
 
 
@@ -46,11 +43,11 @@ if __name__ == '__main__':
 
 
 # if (__name__ == '__main__'):
-
-#     path_image = 'resources/images/test/COVID/COVID (13).png'
-#     path_model = 'resources/saved_models/vgg19.pt'
+#     path_image = 'C:/Users/ManulitoxD/Desktop/CovidRX_Interface/scr/resources/images/test/COVID/COVID (13).png'
+#     path_model = 'C:/Users/ManulitoxD/Desktop/CovidRX_Interface/scr/resources/saved_models/dense_net201.pt'
 #     controller = ModelController()
 #     controller.load__transformed_image(path_image)
 #     controller.load_model(path_model)
 #     controller.evaluate()
 #     controller.heat_map()
+
