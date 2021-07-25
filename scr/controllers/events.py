@@ -49,7 +49,8 @@ class Events():
 
         """
         a = os.path.abspath('')               
-        path_model = a+"\\scr\\resources\\saved_models\\vgg19.pt"
+        # path_model = a+"\\scr\\resources\\saved_models\\vgg19.pt"
+        path_model = "./resources/saved_models/vgg19.pt"
         controller = ModelController()
         controller.load__transformed_image( self.filename)
         controller.load_model(path_model)

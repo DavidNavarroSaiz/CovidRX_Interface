@@ -12,7 +12,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, *args, **kwargs):
         super(MainWindow, self).__init__()
         
-        file = QtCore.QFile("./scr/views/gui_designer.ui")
+        file = QtCore.QFile("./views/gui_designer.ui")
         file.open(QtCore.QFile.ReadOnly)
         loader = QtUiTools.QUiLoader(file)
         self.window = loader.load(file)
