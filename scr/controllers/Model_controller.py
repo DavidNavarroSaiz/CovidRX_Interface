@@ -13,7 +13,7 @@ model_urls['vgg19'] = model_urls['vgg19'].replace('https://', 'http://')
 
 class ModelController():
     """
-    a class who will load the model used to predict
+    a class who will load the model used to predict Working
     """
     def __init__(self):
 
