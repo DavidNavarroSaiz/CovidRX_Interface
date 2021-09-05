@@ -21,7 +21,7 @@ class Events():
         """
         self.window.pushload.clicked.connect(self.load_image)
         # self.window.pushButtonLoad.clicked.connect(self.load_image)
-        self.window.pushButtonRun.clicked.connect(self.evaluate_image)
+        self.window.pushButtonRun.clicked.connect(self.evaluate_selected_models)
         self.window.SaveButton.clicked.connect(self.save_image)
         
     def load_image(self):
@@ -50,14 +50,16 @@ class Events():
         """
         a = os.path.abspath('')               
         # path_model = a+"\\scr\\resources\\saved_models\\vgg19.pt"
-        path_model = "./resources/saved_models/vgg19.pt"
+        
         controller = ModelController()
+        controller.load_model("Rexnet")
         controller.load__transformed_image( self.filename)
-        controller.load_model(path_model)
+        
         controller.evaluate()
-        result,prediction = controller.heat_map()
+        result,prediction,proba = controller.heat_map()
         h,w,z = np.shape(result)
-        print(np.shape(result))
+        
+        
         QResult = QtGui.QImage(result.data, h, w, 3*h, QtGui.QImage.Format_RGB888)  
         self.imagePixmap_result = QtGui.QPixmap.fromImage(QResult)
         self.window.label_5.setPixmap(self.imagePixmap_result)
@@ -67,4 +69,31 @@ class Events():
     def save_image(self):
         self.filename,_ = QtWidgets.QFileDialog.getSaveFileName(None,"Save image file", "image.png","image files(*.jpg *.jpeg *.png)")
         self.imagePixmap_result.save(self.filename)
+    
+    
+    def evaluate_selected_models(self):
+        """
+        Evaluate a list of models
+        
+        """
+        probabilities = []
+        result_images =[]
+        diagnosis = []
+        model_list = ["Vgg19","Densenet"]
+        for model in model_list:
+            controller = ModelController()
+            controller.load_model(model)
+            controller.load__transformed_image( self.filename)
+            controller.evaluate()
+            result,prediction,proba = controller.heat_map()
+            h,w,z = np.shape(result)
+            probabilities.append(proba)
+            result_images.append(result)
+            diagnosis.append(prediction)
+            QResult = QtGui.QImage(result_images[0].data, h, w, 3*h, QtGui.QImage.Format_RGB888)  
+            self.imagePixmap_result = QtGui.QPixmap.fromImage(QResult)
+            self.window.label_5.setPixmap(self.imagePixmap_result)
+            self.window.label_5.setScaledContents(True)  
+            self.window.label.setText(str(diagnosis[-1]))
+            print(probabilities)
         
