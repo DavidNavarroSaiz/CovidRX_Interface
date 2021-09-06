@@ -95,15 +95,18 @@ class ModelController():
         """
         predict the result based on the model
         """
-        labels = ["normal","viral","covid"]
+        # labels = ["normal","viral","covid"]
         
         self.output = self.model(self.image_transformed.unsqueeze(0))
         # if (self.model_name == "InceptionV3"):
         #     print( self.output)
         # else:
-        self.prediction = labels[np.argmax(self.output.tolist())]
-        self.prob = F.softmax(self.output, dim=1)
-        top_p, top_class = self.prob.topk(1, dim = 1)
+        # self.prediction = labels[np.argmax(self.output.tolist())]
+        self.prob = F.softmax(self.output, dim=1).detach().numpy()[0]
+        self.prob_normal = self.prob[0]
+        self.prob_viral = self.prob[1]
+        self.prob_covid = self.prob[2]
+        # top_p, top_class = self.prob.topk(1, dim = 1)
         # print(self.output)
         # print(self.output.tolist())
         # print(self.prob)
@@ -117,7 +120,7 @@ class ModelController():
         # cv2.imshow('Result',img_result)
         # cv2.waitKey(0) 
         # cv2.destroyAllWindows()   
-        return img_result,self.prediction,self.prob
+        return img_result,self.prob_normal,self.prob_viral, self.prob_covid
         
     
 

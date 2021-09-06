@@ -4,6 +4,7 @@ import numpy as np
 import cv2
 import os
 from controllers.Model_controller import ModelController
+import torch
 class Events():
     """
     Set the respective events for the buttons
@@ -70,30 +71,51 @@ class Events():
         self.filename,_ = QtWidgets.QFileDialog.getSaveFileName(None,"Save image file", "image.png","image files(*.jpg *.jpeg *.png)")
         self.imagePixmap_result.save(self.filename)
     
-    
+    def compute_final_results(self):
+        """
+        Compute the final probability based on the results of the models
+        """
+        labels = ["normal","viral","covid"]
+        self.normal_prob = np.mean(self.probabilities_normal)
+        self.viral_prob = np.mean(self.probabilities_viral)
+        self.covid_prob = np.mean(self.probabilities_covid)
+        list_probabilities = [self.normal_prob, self.viral_prob, self.covid_prob]
+        print(self.normal_prob)
+        print(self.viral_prob)
+        print(self.covid_prob)
+        self.final_prediction = labels[np.argmax(list_probabilities)]
+        print("Final diagnosis: ",self.final_prediction)
+        # print(covid_prob)
+        self.display_results()
     def evaluate_selected_models(self):
         """
         Evaluate a list of models
         
         """
-        probabilities = []
-        result_images =[]
-        diagnosis = []
-        model_list = ["Vgg19","Densenet"]
-        for model in model_list:
+        self.probabilities_normal = []
+        self.probabilities_viral = []
+        self.probabilities_covid = []
+        self.result_images =[]
+        self.diagnosis = []
+        self.model_list = ["Vgg19","Densenet","InceptionV3","Resnet"]
+        for model in self.model_list:
             controller = ModelController()
             controller.load_model(model)
             controller.load__transformed_image( self.filename)
             controller.evaluate()
-            result,prediction,proba = controller.heat_map()
-            h,w,z = np.shape(result)
-            probabilities.append(proba)
-            result_images.append(result)
-            diagnosis.append(prediction)
-            QResult = QtGui.QImage(result_images[0].data, h, w, 3*h, QtGui.QImage.Format_RGB888)  
-            self.imagePixmap_result = QtGui.QPixmap.fromImage(QResult)
-            self.window.label_5.setPixmap(self.imagePixmap_result)
-            self.window.label_5.setScaledContents(True)  
-            self.window.label.setText(str(diagnosis[-1]))
-            print(probabilities)
-        
+            result,prob_normal,prob_viral,prob_covid = controller.heat_map()
+            self.probabilities_normal.append(prob_normal)
+            self.probabilities_viral.append(prob_viral)
+            self.probabilities_covid.append(prob_covid)
+            self.result_images.append(result)
+            
+
+        self.compute_final_results()
+    
+    def display_results(self):
+        h,w,z = np.shape(self.result_images[0])
+        QResult = QtGui.QImage(self.result_images[0].data, h, w, 3*h, QtGui.QImage.Format_RGB888)  
+        self.imagePixmap_result = QtGui.QPixmap.fromImage(QResult)
+        self.window.label_5.setPixmap(self.imagePixmap_result)
+        self.window.label_5.setScaledContents(True)  
+        self.window.label.setText(str(self.final_prediction))
