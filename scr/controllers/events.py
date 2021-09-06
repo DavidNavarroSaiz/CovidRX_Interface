@@ -1,5 +1,7 @@
 
 from PySide2 import QtGui, QtWidgets, QtCore
+from PySide2.QtWidgets import QApplication, QWidget, QPushButton, QMessageBox, QVBoxLayout, QLabel
+
 import numpy as np
 import cv2
 import os
@@ -34,7 +36,8 @@ class Events():
         """
         self.filename,_ = QtWidgets.QFileDialog.getOpenFileName(None,"Open image file", r"~/Desktop/","image files(*.jpg *.jpeg *.png)")
         imagePixmap = QtGui.QPixmap.fromImage( self.filename)
-        self.window.label_4.setPixmap(imagePixmap)
+        pixmap_resized = imagePixmap.scaled(320, 280, QtCore.Qt.KeepAspectRatio)
+        self.window.label_4.setPixmap(pixmap_resized)
         self.window.label_4.setScaledContents(True)  
         # BGR_image = cv2.imread(filename)
         # RGB_image = cv2.cvtColor(BGR_image, cv2.COLOR_BGR2RGB)
@@ -106,7 +109,8 @@ class Events():
         self.probabilities_covid = []
         self.result_images =[]
         self.diagnosis = []
-        self.model_list = ["Vgg19","InceptionV3","Resnet","Densenet"]
+        # self.model_list = ["Vgg19","InceptionV3","Resnet","Densenet"]
+        self.model_list = ["Resnet","Densenet"]
         for model in self.model_list:
             controller = ModelController()
             controller.load_model(model)
@@ -126,11 +130,25 @@ class Events():
         # self.movie.close()
         h,w,z = np.shape(self.result_images[0])
         QResult = QtGui.QImage(self.result_images[0].data, h, w, 3*h, QtGui.QImage.Format_RGB888)  
+
         self.imagePixmap_result = QtGui.QPixmap.fromImage(QResult)
+        self.imagePixmap_result = self.imagePixmap_result.scaled(320, 280, QtCore.Qt.KeepAspectRatio)
+
         self.window.label_5.setPixmap(self.imagePixmap_result)
         self.window.label_5.setScaledContents(True)  
         self.window.label.setText(str(self.final_prediction))
         self.window.progressBar.setValue(self.normal_prob)
         self.window.progressBar_2.setValue(self.viral_prob)
         self.window.progressBar_3.setValue(self.covid_prob)
+        self.popup()
         
+    def popup(self):
+        if (self.final_prediction == "covid" ):
+        # QMessageBox.about(self.window, "AboutBox", "This is about application")
+            QMessageBox.warning(self.window, "Warning", "You have a chance of "+str(round(self.covid_prob,2))+'%' 
+                                ' of having COVID-19 dissease \n Please communicate with your medical entity ')
+        elif(self.final_prediction=="viral"):
+            QMessageBox.warning(self.window,"Warning","you have a chance of "+str(round(self.viral_prob,2))+'%'' of having pneumonia \n Please communicate with your medical entity')
+        
+        elif(self.final_prediction == "normal"):
+            QMessageBox.warning(self.window,"Warning","you have a chance of "+str(round(self.normal_prob,2))+'%'' of being OK \n Congratulations')

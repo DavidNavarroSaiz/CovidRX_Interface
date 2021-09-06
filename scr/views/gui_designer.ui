@@ -200,19 +200,6 @@
      </widget>
     </item>
    </layout>
-   <widget class="QLabel" name="labelLogo">
-    <property name="geometry">
-     <rect>
-      <x>9</x>
-      <y>9</y>
-      <width>1069</width>
-      <height>185</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
    <widget class="QLabel" name="labelLogoFlir">
     <property name="geometry">
      <rect>
@@ -220,6 +207,19 @@
       <y>200</y>
       <width>1069</width>
       <height>186</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelLogo">
+    <property name="geometry">
+     <rect>
+      <x>9</x>
+      <y>-7</y>
+      <width>1069</width>
+      <height>201</height>
      </rect>
     </property>
     <property name="text">
