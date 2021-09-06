@@ -5,6 +5,8 @@ import cv2
 import os
 from controllers.Model_controller import ModelController
 import torch
+from PySide2.QtCore import *
+from PySide2.QtGui import * 
 class Events():
     """
     Set the respective events for the buttons
@@ -76,13 +78,13 @@ class Events():
         Compute the final probability based on the results of the models
         """
         labels = ["normal","viral","covid"]
-        self.normal_prob = np.mean(self.probabilities_normal)
-        self.viral_prob = np.mean(self.probabilities_viral)
-        self.covid_prob = np.mean(self.probabilities_covid)
+        self.normal_prob = np.mean(self.probabilities_normal)*100
+        self.viral_prob = np.mean(self.probabilities_viral)*100
+        self.covid_prob = np.mean(self.probabilities_covid)*100
         list_probabilities = [self.normal_prob, self.viral_prob, self.covid_prob]
-        print(self.normal_prob)
-        print(self.viral_prob)
-        print(self.covid_prob)
+        # print(self.normal_prob*100)
+        # print(self.viral_prob*100)
+        # print(self.covid_prob*100)
         self.final_prediction = labels[np.argmax(list_probabilities)]
         print("Final diagnosis: ",self.final_prediction)
         # print(covid_prob)
@@ -92,12 +94,19 @@ class Events():
         Evaluate a list of models
         
         """
+        
+        # ag_file = "./../views/icons/giphy.gif"
+        # self.movie = QMovie(ag_file) 
+        # self.movie.setCacheMode(QMovie.CacheAll) 
+        # self.movie.setSpeed(100)         
+        # self.window.label_5.setMovie(self.movie)
+        # self.movie.start()
         self.probabilities_normal = []
         self.probabilities_viral = []
         self.probabilities_covid = []
         self.result_images =[]
         self.diagnosis = []
-        self.model_list = ["Vgg19","Densenet","InceptionV3","Resnet"]
+        self.model_list = ["Vgg19","InceptionV3","Resnet","Densenet"]
         for model in self.model_list:
             controller = ModelController()
             controller.load_model(model)
@@ -113,9 +122,15 @@ class Events():
         self.compute_final_results()
     
     def display_results(self):
+        # self.movie.stop()
+        # self.movie.close()
         h,w,z = np.shape(self.result_images[0])
         QResult = QtGui.QImage(self.result_images[0].data, h, w, 3*h, QtGui.QImage.Format_RGB888)  
         self.imagePixmap_result = QtGui.QPixmap.fromImage(QResult)
         self.window.label_5.setPixmap(self.imagePixmap_result)
         self.window.label_5.setScaledContents(True)  
         self.window.label.setText(str(self.final_prediction))
+        self.window.progressBar.setValue(self.normal_prob)
+        self.window.progressBar_2.setValue(self.viral_prob)
+        self.window.progressBar_3.setValue(self.covid_prob)
+        
