@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "C:\\Users\\ManulitoxD\\.conda\\envs\\Covid-RX\\python.exe"
+    "python.pythonPath": "C:\\Users\\ManulitoxD\\.conda\\envs\\Covid-RX\\python.exe",
+    "cmake.configureOnOpen": false
 }

@@ -24,30 +24,9 @@ from controllers.events import Events
 """
 Correr la aplicación
 """
-
 if __name__ == '__main__':
     app = QtWidgets.QApplication([])
     window = MainWindow()
     controller = Events(window)
     window.window.show()
-    app.exec_()
-
-
-
-
-
-
-
-
-
-
-
-# if (__name__ == '__main__'):
-#     path_image = 'C:/Users/ManulitoxD/Desktop/CovidRX_Interface/scr/resources/images/test/COVID/COVID (13).png'
-#     path_model = 'C:/Users/ManulitoxD/Desktop/CovidRX_Interface/scr/resources/saved_models/dense_net201.pt'
-#     controller = ModelController()
-#     controller.load__transformed_image(path_image)
-#     controller.load_model(path_model)
-#     controller.evaluate()
-#     controller.heat_map()
-
+    app.exit(app.exec_())

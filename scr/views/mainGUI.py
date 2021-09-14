@@ -1,18 +1,23 @@
 from PySide2.QtWidgets import QApplication,QWidget,QFileDialog 
-from PySide2.QtGui import QIcon , QPixmap 
+from PySide2.QtGui import QIcon , QPixmap, Qt 
 from PySide2 import QtCore
 from PySide2 import QtUiTools
 import sys
 from PySide2 import QtWidgets
+import pathlib
+
 
 # To convert a ui file to a .py using pyside2
 # pyside2-uic gui_designer.ui -o gui_designer_ui.py
+
+
 class MainWindow(QtWidgets.QMainWindow):
         
     def __init__(self, *args, **kwargs):
         super(MainWindow, self).__init__()
+        dir_path = pathlib.Path(__file__).parent.resolve().as_posix()
         
-        file = QtCore.QFile("./views/gui_designer.ui")
+        file = QtCore.QFile(dir_path+"/gui_designer.ui")
         file.open(QtCore.QFile.ReadOnly)
         loader = QtUiTools.QUiLoader(file)
         self.window = loader.load(file)
@@ -22,6 +27,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setLayout(layout)
         self.setWindowTitle("Covid RX detection")
         # self.setGeometry(300, 100, 1012, 622)
+
 
 
 def main():

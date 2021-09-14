@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1427</width>
-    <height>600</height>
+    <width>1031</width>
+    <height>491</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -111,40 +111,6 @@
            <string>Save HeatMap</string>
           </property>
          </widget>
-         <widget class="QLabel" name="label_3">
-          <property name="geometry">
-           <rect>
-            <x>50</x>
-            <y>20</y>
-            <width>71</width>
-            <height>20</height>
-           </rect>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>12</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>RESULT</string>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>60</y>
-            <width>151</width>
-            <height>31</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(255, 255, 255);</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
          <widget class="QProgressBar" name="progressBar">
           <property name="geometry">
            <rect>
@@ -184,10 +150,62 @@
            <number>0</number>
           </property>
          </widget>
-         <widget class="QLabel" name="StatusLabel">
+         <widget class="QLabel" name="Filename">
           <property name="geometry">
            <rect>
             <x>0</x>
+            <y>370</y>
+            <width>153</width>
+            <height>40</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_2">
+          <property name="geometry">
+           <rect>
+            <x>150</x>
+            <y>220</y>
+            <width>47</width>
+            <height>20</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Normal</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_6">
+          <property name="geometry">
+           <rect>
+            <x>150</x>
+            <y>260</y>
+            <width>61</width>
+            <height>20</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Pneumonia</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_7">
+          <property name="geometry">
+           <rect>
+            <x>150</x>
+            <y>300</y>
+            <width>47</width>
+            <height>20</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Covid</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="FinalPrediction">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
             <y>370</y>
             <width>153</width>
             <height>40</height>
@@ -235,7 +253,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1427</width>
+     <width>1031</width>
      <height>21</height>
     </rect>
    </property>
@@ -247,12 +265,26 @@
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
+     <string>Models</string>
+    </property>
+    <addaction name="actionVgg19"/>
+    <addaction name="actionDenseNet"/>
+    <addaction name="actionMobileNet"/>
+    <addaction name="actionAlexNet"/>
+    <addaction name="actionEfficientNet"/>
+    <addaction name="actionInceptionV3"/>
+    <addaction name="actionResNet_2"/>
+    <addaction name="actionRexNet"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp_2">
+    <property name="title">
      <string>Help</string>
     </property>
-    <addaction name="actionAbout"/>
+    <addaction name="actionAbout_2"/>
    </widget>
    <addaction name="menuMen"/>
    <addaction name="menuHelp"/>
+   <addaction name="menuHelp_2"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionExit">
@@ -263,6 +295,78 @@
   <action name="actionAbout">
    <property name="text">
     <string>About</string>
+   </property>
+  </action>
+  <action name="actionAbout_2">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionVgg19">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Vgg19</string>
+   </property>
+  </action>
+  <action name="actionDenseNet">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>DenseNet</string>
+   </property>
+  </action>
+  <action name="actionMobileNet">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>MobileNet</string>
+   </property>
+  </action>
+  <action name="actionAlexNet">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>AlexNet</string>
+   </property>
+  </action>
+  <action name="actionEfficientNet">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>EfficientNet</string>
+   </property>
+  </action>
+  <action name="actionInceptionV3">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>InceptionV3</string>
+   </property>
+  </action>
+  <action name="actionResNet_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>ResNet</string>
+   </property>
+  </action>
+  <action name="actionRexNet">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>RexNet</string>
    </property>
   </action>
  </widget>
