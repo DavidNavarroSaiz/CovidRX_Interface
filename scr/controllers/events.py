@@ -6,19 +6,17 @@ import cv2, os, pathlib, time, torch
 from controllers.Model_controller import ModelController
 from PySide2.QtCore import *
 from PySide2.QtGui import * 
-class Loading(QtWidgets.QWidget):
-    def __init__(self):
+class Loading():
+    def __init__(self, label):
         super().__init__()
-        self.setWindowTitle("Processing...")
-        self.setFixedSize(148,148)
-        self.setWindowFlags(Qt.WindowStaysOnTopHint | Qt.CustomizeWindowHint)
-        self.label = QLabel(self)
+        # self.label = QLabel()
+        self.label = label
         dir_path = pathlib.Path(__file__).parent.parent.resolve().as_posix()
         image = dir_path + "/views/icons/giphy2.gif"
         self.movie = QMovie(image)
         self.label.setScaledContents(True)
         self.label.setMovie(self.movie)
-    
+
     def start(self):
         self.movie.start()
         # self.show()
@@ -41,9 +39,19 @@ class Events():
         Connect each button with is respective event
         """
         self.window.pushload.clicked.connect(self.load_image)
-        # self.window.pushButtonLoad.clicked.connect(self.load_image)
-        self.window.pushButtonRun.clicked.connect(self.threads)
+        self.window.pushButtonRun.pressed.connect(self.loading)
+        self.window.pushButtonRun.released.connect(self.run)
         self.window.SaveButton.clicked.connect(self.save_image)
+        self.window.pushButtonRun.setEnabled(False)
+        self.window.pushButtonRun.setText("Select Models on the top Menu")
+        self.window.actionVgg19.changed.connect(self.activate_run)
+        self.window.actionDenseNet.changed.connect(self.activate_run)
+        self.window.actionMobileNet.changed.connect(self.activate_run)
+        self.window.actionAlexNet.changed.connect(self.activate_run)
+        self.window.actionEfficientNet.changed.connect(self.activate_run)
+        self.window.actionInceptionV3.changed.connect(self.activate_run)
+        self.window.actionResNet_2.changed.connect(self.activate_run)
+        self.window.actionRexNet.changed.connect(self.activate_run)
         
     def load_image(self):
         """
@@ -105,25 +113,39 @@ class Events():
         elif(self.final_prediction == "normal"):
             QMessageBox.warning(self.window,"Warning","you have a chance of "+str(round(self.window.progressBar_1.value(),2))+'%'' of being OK \n Congratulations')
 
-    def threads(self):
-        thread = Thread(self.window)
-        thread.start()
-        # thread_loading = ThreadLoading(self.window)
-        # thread_loading.start()
-        i=0
-        # while(True):
-        while(thread.isRunning()):
-            i+=1
-            print('corriendo'+'.'*i, end = '\r')
-            time.sleep(1)
-        print("Finalizado!")
-        self.popup()
+    def loading(self):
+        # dir_path = pathlib.Path(__file__).parent.parent.resolve().as_posix()
+        # image = dir_path + "/views/icons/loading.png"
+        # self.window.label_5.setPixmap(image)
+        loading = Loading(self.window.label_5)
+        loading.start()
+        print("displayed image")
 
-class Thread(QThread):
-    def __init__(self,window):
-        super().__init__()
-        self.window = window
+    def activate_run(self):
+        statement = (
+            self.window.actionVgg19.isChecked() | self.window.actionDenseNet.isChecked() | self.window.actionMobileNet.isChecked() |
+            self.window.actionAlexNet.isChecked() | self.window.actionEfficientNet.isChecked() | self.window.actionInceptionV3.isChecked() |
+            self.window.actionResNet_2.isChecked() | self.window.actionRexNet.isChecked()
+        )
+        self.window.pushButtonRun.setEnabled(True) if statement else self.window.pushButtonRun.setEnabled(False)
+        self.window.pushButtonRun.setText("Run diagnosis") if statement else self.window.pushButtonRun.setText("Select Models on the top Menu")
 
+#
+    # def threads(self):
+    #     thread = Processing(self.window)
+    #     thread.start()
+    #     i=0
+    #     while(thread.isRunning()):
+    #         i+=1
+    #         print('corriendo'+'.'*i, end = '\r')
+    #         time.sleep(1)
+    #     print("Finalizado!")
+    #     self.popup()
+# class Processing(QThread):
+    # def __init__(self,window):
+    #     super().__init__()
+    #     self.window = window
+#
     def run(self):
         """
         Evaluate a list of models
@@ -134,8 +156,17 @@ class Thread(QThread):
         self.probabilities_covid = []
         self.result_images =[]
         self.diagnosis = []
-        # self.model_list = ["Vgg19","InceptionV3","Resnet","Densenet"]
-        self.model_list = ["Vgg19"]
+        self.model_list = []
+
+        if self.window.actionVgg19.isChecked(): self.model_list.append("Vgg19")
+        if self.window.actionDenseNet.isChecked(): self.model_list.append("Densenet")
+        if self.window.actionMobileNet.isChecked(): self.model_list.append("Mobilenet")
+        if self.window.actionAlexNet.isChecked(): self.model_list.append("Alexnet")
+        if self.window.actionEfficientNet.isChecked(): self.model_list.append("Efficientnet")
+        if self.window.actionInceptionV3.isChecked(): self.model_list.append("InceptionV3")
+        if self.window.actionResNet_2.isChecked(): self.model_list.append("Resnet")
+        if self.window.actionRexNet.isChecked(): self.model_list.append("Rexnet")
+
         for model in self.model_list:
             controller = ModelController()
             controller.load_model(model)
@@ -188,9 +219,12 @@ class ThreadLoading(QThread):
     def __init__(self,window):
         super().__init__()
         self.window = window
+        self.loading = Loading()
 
     def run(self):
-        imagePixmap = QtGui.QPixmap.fromImage(self.window.Filename.objectName())
-        pixmap_resized = imagePixmap.scaled(320, 280, QtCore.Qt.KeepAspectRatio)
-        self.window.label_5.setPixmap(pixmap_resized)
-        self.window.label_5.setScaledContents(True)
+        print('corriendo')
+        self.loading.start()
+
+    def stop(self):
+        print('ya')
+        self.loading.stop()

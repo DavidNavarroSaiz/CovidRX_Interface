@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1031</width>
-    <height>491</height>
+    <width>1019</width>
+    <height>494</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -26,9 +26,6 @@
       <layout class="QGridLayout" name="gridLayout">
        <item row="0" column="0">
         <layout class="QVBoxLayout" name="verticalLayout_3">
-         <property name="leftMargin">
-          <number>6</number>
-         </property>
          <item>
           <widget class="QLabel" name="label_4">
            <property name="minimumSize">
@@ -46,20 +43,50 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushload">
-           <property name="enabled">
-            <bool>true</bool>
-           </property>
-           <property name="text">
-            <string>Load Image</string>
-           </property>
-           <property name="default">
-            <bool>true</bool>
-           </property>
-           <property name="flat">
-            <bool>false</bool>
-           </property>
-          </widget>
+          <layout class="QHBoxLayout" name="horizontalLayout_4">
+           <item>
+            <spacer name="horizontalSpacer_5">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushload">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="text">
+              <string>Load Image</string>
+             </property>
+             <property name="default">
+              <bool>true</bool>
+             </property>
+             <property name="flat">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_6">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
          </item>
         </layout>
        </item>
@@ -82,11 +109,41 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButtonRun">
-           <property name="text">
-            <string>Run diagnosis</string>
-           </property>
-          </widget>
+          <layout class="QHBoxLayout" name="horizontalLayout_5">
+           <item>
+            <spacer name="horizontalSpacer_7">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButtonRun">
+             <property name="text">
+              <string>Run diagnosis</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_8">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
          </item>
         </layout>
        </item>
@@ -98,123 +155,179 @@
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
          </property>
-         <widget class="QPushButton" name="SaveButton">
-          <property name="geometry">
-           <rect>
-            <x>30</x>
-            <y>130</y>
-            <width>111</width>
-            <height>41</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Save HeatMap</string>
-          </property>
-         </widget>
-         <widget class="QProgressBar" name="progressBar">
-          <property name="geometry">
-           <rect>
-            <x>30</x>
-            <y>220</y>
-            <width>118</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="value">
-           <number>0</number>
-          </property>
-         </widget>
-         <widget class="QProgressBar" name="progressBar_2">
-          <property name="geometry">
-           <rect>
-            <x>30</x>
-            <y>260</y>
-            <width>118</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="value">
-           <number>0</number>
-          </property>
-         </widget>
-         <widget class="QProgressBar" name="progressBar_3">
-          <property name="geometry">
-           <rect>
-            <x>30</x>
-            <y>300</y>
-            <width>118</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="value">
-           <number>0</number>
-          </property>
-         </widget>
-         <widget class="QLabel" name="Filename">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>370</y>
-            <width>153</width>
-            <height>40</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label_2">
-          <property name="geometry">
-           <rect>
-            <x>150</x>
-            <y>220</y>
-            <width>47</width>
-            <height>20</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Normal</string>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label_6">
-          <property name="geometry">
-           <rect>
-            <x>150</x>
-            <y>260</y>
-            <width>61</width>
-            <height>20</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Pneumonia</string>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label_7">
-          <property name="geometry">
-           <rect>
-            <x>150</x>
-            <y>300</y>
-            <width>47</width>
-            <height>20</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Covid</string>
-          </property>
-         </widget>
-         <widget class="QLabel" name="FinalPrediction">
-          <property name="geometry">
-           <rect>
-            <x>30</x>
-            <y>370</y>
-            <width>153</width>
-            <height>40</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
+         <layout class="QGridLayout" name="gridLayout_4">
+          <item row="1" column="0">
+           <widget class="QLabel" name="Filename">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" colspan="3">
+           <layout class="QGridLayout" name="gridLayout_3">
+            <property name="sizeConstraint">
+             <enum>QLayout::SetNoConstraint</enum>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <item row="0" column="1">
+             <spacer name="verticalSpacer">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="1" column="0">
+             <spacer name="horizontalSpacer_3">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="2" column="1">
+             <spacer name="verticalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="1" column="2">
+             <spacer name="horizontalSpacer_4">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="1" column="1">
+             <layout class="QVBoxLayout" name="verticalLayout_5">
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_3">
+                <item>
+                 <spacer name="horizontalSpacer">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="SaveButton">
+                  <property name="text">
+                   <string>Save HeatMap</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_2">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_2">
+                <item>
+                 <layout class="QVBoxLayout" name="verticalLayout">
+                  <item>
+                   <widget class="QProgressBar" name="progressBar">
+                    <property name="value">
+                     <number>0</number>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QProgressBar" name="progressBar_2">
+                    <property name="value">
+                     <number>0</number>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QProgressBar" name="progressBar_3">
+                    <property name="value">
+                     <number>0</number>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QVBoxLayout" name="verticalLayout_2">
+                  <item>
+                   <widget class="QLabel" name="label_2">
+                    <property name="text">
+                     <string>Normal</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_6">
+                    <property name="text">
+                     <string>Pneumonia</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_7">
+                    <property name="text">
+                     <string>Covid</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLabel" name="FinalPrediction">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
       </layout>
@@ -253,7 +366,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1031</width>
+     <width>1019</width>
      <height>21</height>
     </rect>
    </property>
@@ -263,7 +376,7 @@
     </property>
     <addaction name="actionExit"/>
    </widget>
-   <widget class="QMenu" name="menuHelp">
+   <widget class="QMenu" name="menuModels">
     <property name="title">
      <string>Models</string>
     </property>
@@ -276,15 +389,15 @@
     <addaction name="actionResNet_2"/>
     <addaction name="actionRexNet"/>
    </widget>
-   <widget class="QMenu" name="menuHelp_2">
+   <widget class="QMenu" name="menuHelp">
     <property name="title">
      <string>Help</string>
     </property>
     <addaction name="actionAbout_2"/>
    </widget>
    <addaction name="menuMen"/>
+   <addaction name="menuModels"/>
    <addaction name="menuHelp"/>
-   <addaction name="menuHelp_2"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionExit">
@@ -370,6 +483,11 @@
    </property>
   </action>
  </widget>
+ <tabstops>
+  <tabstop>pushload</tabstop>
+  <tabstop>SaveButton</tabstop>
+  <tabstop>pushButtonRun</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
