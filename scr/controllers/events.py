@@ -170,7 +170,7 @@ class Events():
         for model in self.model_list:
             controller = ModelController()
             controller.load_model(model)
-            self.filename = 'C:/Users/ManulitoxD/Desktop/Covid-RX/CovidRX_Interface/COVID (13).png'
+            #self.filename = 'C:/Users/ManulitoxD/Desktop/Covid-RX/CovidRX_Interface/COVID (13).png'
             controller.load__transformed_image( self.filename)
             controller.evaluate()
             result,prob_normal,prob_viral,prob_covid = controller.heat_map()
@@ -180,6 +180,7 @@ class Events():
             self.result_images.append(result)
             
         self.compute_final_results()
+        
 
     def compute_final_results(self):
         """
@@ -213,7 +214,7 @@ class Events():
         self.window.progressBar.setValue(self.normal_prob)
         self.window.progressBar_2.setValue(self.viral_prob)
         self.window.progressBar_3.setValue(self.covid_prob)
-
+        self.popup()
 
 class ThreadLoading(QThread):
     def __init__(self,window):

@@ -56,7 +56,7 @@ class ModelController():
 
         if(self.model_name == "Efficientnet"):
             path = dir_path + "/resources/saved_models/final_models/efficientnetb7_1_3500_3_0.97.pt"
-            self.model = timm.create_model('tf_efficientnet_b7_ns',init_weights=True)
+            self.model = timm.create_model('tf_efficientnet_b7_ns')
             self.model.classifier = torch.nn.Linear(in_features=2560, out_features=3)
 
         if(self.model_name == "InceptionV3"):
