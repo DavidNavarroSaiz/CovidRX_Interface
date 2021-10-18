@@ -6,6 +6,9 @@ import cv2, os, pathlib, time, torch
 from controllers.Model_controller import ModelController
 from PySide2.QtCore import *
 from PySide2.QtGui import * 
+from torchcam.utils import overlay_mask
+from torchvision.transforms.functional import normalize, resize, to_pil_image
+import torch.nn.functional as F
 class Loading():
     def __init__(self, label):
         super().__init__()
@@ -154,7 +157,7 @@ class Events():
         self.probabilities_normal = []
         self.probabilities_viral = []
         self.probabilities_covid = []
-        self.result_images =[]
+        self.result_ActivationMap =[]
         self.diagnosis = []
         self.model_list = []
 
@@ -166,19 +169,33 @@ class Events():
         if self.window.actionInceptionV3.isChecked(): self.model_list.append("InceptionV3")
         if self.window.actionResNet_2.isChecked(): self.model_list.append("Resnet")
         if self.window.actionRexNet.isChecked(): self.model_list.append("Rexnet")
-
+        model_counter = 0
         for model in self.model_list:
+            print("Evaluating model: ",self.model_list[model_counter])
             controller = ModelController()
             controller.load_model(model)
             #self.filename = 'C:/Users/ManulitoxD/Desktop/Covid-RX/CovidRX_Interface/COVID (13).png'
             controller.load__transformed_image( self.filename)
             controller.evaluate()
-            result,prob_normal,prob_viral,prob_covid = controller.heat_map()
+            self.rgbimage,result_actmap,prob_normal,prob_viral,prob_covid = controller.heat_map()
             self.probabilities_normal.append(prob_normal)
             self.probabilities_viral.append(prob_viral)
             self.probabilities_covid.append(prob_covid)
-            self.result_images.append(result)
+            if (result_actmap.shape[0]< 7):
+                padding = np.pad(result_actmap, ((1, 0), (1, 0)), 'constant', constant_values=(0, 0))
+                result_actmap  =padding
+            elif(result_actmap.shape[0]> 7):
+                result_actmap = result_actmap[1:8, 1:8]
+            else:
+                result_actmap = result_actmap
+            if model_counter == 0 :
+                self.result_ActivationMap= result_actmap 
+            else:
+                self.result_ActivationMap= result_actmap + self.result_ActivationMap
+
             
+            model_counter += 1
+        self.FinalActivationMap = (self.result_ActivationMap / len(self.model_list))*1.5
         self.compute_final_results()
         
 
@@ -203,8 +220,11 @@ class Events():
     def display_results(self):
         # self.movie.stop()
         # self.movie.close()
-        h,w,z = np.shape(self.result_images[0])
-        QResult = QtGui.QImage(self.result_images[0].data, h, w, 3*h, QtGui.QImage.Format_RGB888)  
+        result = overlay_mask(to_pil_image(self.rgbimage), to_pil_image(self.FinalActivationMap, mode='F'), alpha=0.7)
+        self.img_result = np.array(result)
+        
+        h,w,z = np.shape(self.img_result)
+        QResult = QtGui.QImage(self.img_result.data, h, w, 3*h, QtGui.QImage.Format_RGB888)  
 
         self.imagePixmap_result = QtGui.QPixmap.fromImage(QResult)
         self.imagePixmap_result = self.imagePixmap_result.scaled(320, 280, QtCore.Qt.KeepAspectRatio)

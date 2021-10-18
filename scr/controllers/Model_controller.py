@@ -5,7 +5,7 @@ import numpy as np
 from PIL import Image
 from matplotlib import pyplot as plt
 from torchcam.utils import overlay_mask
-from torchcam.cams import SmoothGradCAMpp,XGradCAM,SSCAM
+from torchcam.cams import SmoothGradCAMpp,XGradCAM,GradCAMpp,GradCAM
 from torchvision.transforms.functional import normalize, resize, to_pil_image
 from torchvision.models.vgg import model_urls
 import torch.nn.functional as F
@@ -38,49 +38,60 @@ class ModelController():
             self.model = torchvision.models.vgg19(pretrained=True)
             # self.model.classifier = torch.nn.Linear(in_features=1920, out_features=3)
             self.model.classifier[6]= torch.nn.Linear(in_features=4096, out_features=3)
-
+            self.target_layers = 'features'
+            
         if(self.model_name == "Densenet"):
             path = dir_path + "/resources/saved_models/final_models/dense_2_2_0.97.pt"
             self.model = torchvision.models.densenet201()
             self.model.classifier= torch.nn.Linear(in_features=1920, out_features=3)
-
+            self.target_layers = 'features'
+            
         if(self.model_name == "Mobilenet"):
             path = dir_path + "/resources/saved_models/final_models/mobilenetv3_3_7_5500_0.97.pt"
             self.model = timm.create_model('tf_mobilenetv3_large_075')
             self.model.classifier = torch.nn.Linear(in_features=1280, out_features=3)
-
+            self.target_layers = 'blocks'
+            
         if(self.model_name == "Alexnet"):
             path = dir_path + "/resources/saved_models/final_models/alex_final_16.0000_0.948.pt"
             self.model = torchvision.models.alexnet()
             self.model.classifier[6]= torch.nn.Linear(in_features=4096, out_features=3)
-
+            self.target_layers  ='features'
+            
         if(self.model_name == "Efficientnet"):
             path = dir_path + "/resources/saved_models/final_models/efficientnetb7_1_3500_3_0.97.pt"
             self.model = timm.create_model('tf_efficientnet_b7_ns')
             self.model.classifier = torch.nn.Linear(in_features=2560, out_features=3)
-
+            self.target_layers  ='blocks'
+            
         if(self.model_name == "InceptionV3"):
             path = dir_path + "/resources/saved_models/final_models/InceptionV3_3_8_0.95.pt"
             self.model = torchvision.models.inception_v3()
             self.model.AuxLogits.fc = torch.nn.Linear(768, 3)
             self.model.fc = torch.nn.Linear(2048, 3)
-
+            self.target_layers  ='Mixed_7c'
+            
         if (self.model_name == "Resnet"):
             path = dir_path + "/resources/saved_models/final_models/ResNet152_11400_5_0.97.pt"
             self.model = torchvision.models.resnet152()
             self.model.fc = torch.nn.Linear(2048, 3)
+            self.target_layers  ='layer4'
             
         if (self.model_name == "Rexnet"):
             path = dir_path + "/resources/saved_models/final_models/rexnet_3_7_7800_0.95.pt"
             self.model = timm.create_model('rexnet_100')
             self.model.classifier = torch.nn.Linear(in_features=2560, out_features=3)
-            
+            self.target_layers  ='features'
             
         self.model.eval()
         # self.model.to('cpu')
         self.model.load_state_dict(torch.load(path, map_location=torch.device('cpu')),strict=False)
-        self.cam_extractor = SmoothGradCAMpp(self.model)
-
+        # self.cam_extractor = SmoothGradCAMpp(self.model)
+        self.cam_extractor1 = XGradCAM(self.model,self.target_layers)
+        self.cam_extractor2 = SmoothGradCAMpp(self.model,self.target_layers)
+        self.cam_extractor3 = GradCAMpp(self.model,self.target_layers)
+        self.cam_extractor4 = GradCAM(self.model,self.target_layers)
+        
     def load__transformed_image(self,image_path):
         """
         Load image and apply transformations
@@ -113,6 +124,8 @@ class ModelController():
         # else:
         # self.prediction = labels[np.argmax(self.output.tolist())]
         self.prob = F.softmax(self.output, dim=1).detach().numpy()[0]
+        
+        print(self.prob)
         self.prob_normal = self.prob[0]
         self.prob_viral = self.prob[1]
         self.prob_covid = self.prob[2]
@@ -125,13 +138,19 @@ class ModelController():
         """
         apply heat map to the image and show result
         """
-        activation_map = self.cam_extractor(self.output.squeeze(0).argmax().item(), self.output)
-        result = overlay_mask(to_pil_image(self.rgbimage), to_pil_image(activation_map, mode='F'), alpha=0.7)
-        img_result = np.array(result)
-        # cv2.imshow('Result',img_result)
-        # cv2.waitKey(0) 
-        # cv2.destroyAllWindows()   
-        return img_result,self.prob_normal,self.prob_viral, self.prob_covid
+        activation_map1 = self.cam_extractor1(self.output.squeeze(0).argmax().item(), self.output)
+        activation_map2 = self.cam_extractor2(self.output.squeeze(0).argmax().item(), self.output)
+        activation_map3 = self.cam_extractor3(self.output.squeeze(0).argmax().item(), self.output)
+        activation_map4 = self.cam_extractor4(self.output.squeeze(0).argmax().item(), self.output)
+        if (torch.isnan(activation_map1).any() == True): activation_map1[torch.isnan(activation_map1)] = 0.5
+        if (torch.isnan(activation_map2).any() == True): activation_map2[torch.isnan(activation_map2)] = 0.5
+        if (torch.isnan(activation_map3).any() == True): activation_map3[torch.isnan(activation_map3)] = 0.5
+        if (torch.isnan(activation_map4).any() == True): activation_map4[torch.isnan(activation_map4)] = 0.5
+        sum_activation_map = activation_map1 + activation_map2 +activation_map3+activation_map4
+        activation_map =  sum_activation_map / 4
+
+
+        return self.rgbimage,activation_map.numpy(),self.prob_normal,self.prob_viral, self.prob_covid
         
     
 
