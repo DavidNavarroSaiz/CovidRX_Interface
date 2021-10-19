@@ -98,6 +98,7 @@ class ModelController():
         """
         img = cv2.imread(image_path)
         self.rgbimage = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        self.rgbimage = cv2.resize(self.rgbimage, (256, 256)) 
         if (self.model_name == "InceptionV3"):
             image_size = (299,299)
         else: 

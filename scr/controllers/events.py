@@ -188,6 +188,7 @@ class Events():
                 result_actmap = result_actmap[1:8, 1:8]
             else:
                 result_actmap = result_actmap
+            result_actmap = result_actmap[1:7, 1:6]
             if model_counter == 0 :
                 self.result_ActivationMap= result_actmap 
             else:
@@ -195,7 +196,7 @@ class Events():
 
             
             model_counter += 1
-        self.FinalActivationMap = (self.result_ActivationMap / len(self.model_list))*1.5
+        self.FinalActivationMap = (self.result_ActivationMap / len(self.model_list))*(1.5+len(self.model_list)/8)
         self.compute_final_results()
         
 
@@ -220,9 +221,10 @@ class Events():
     def display_results(self):
         # self.movie.stop()
         # self.movie.close()
+        
         result = overlay_mask(to_pil_image(self.rgbimage), to_pil_image(self.FinalActivationMap, mode='F'), alpha=0.7)
         self.img_result = np.array(result)
-        
+
         h,w,z = np.shape(self.img_result)
         QResult = QtGui.QImage(self.img_result.data, h, w, 3*h, QtGui.QImage.Format_RGB888)  
 
@@ -234,8 +236,10 @@ class Events():
         self.window.progressBar.setValue(self.normal_prob)
         self.window.progressBar_2.setValue(self.viral_prob)
         self.window.progressBar_3.setValue(self.covid_prob)
+        # cv2.imshow('ImageWindow', self.rgbimage)
+        # cv2.waitKey()
         self.popup()
-
+        
 class ThreadLoading(QThread):
     def __init__(self,window):
         super().__init__()
