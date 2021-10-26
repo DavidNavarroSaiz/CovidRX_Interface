@@ -1,7 +1,38 @@
+<!doctype html>
+
 <html>
-<body>
-<h1>
-hola
-</h1>
-</body>
+    <head>
+        <meta charset = "utf-8">
+        <title> Hola </title>
+        <style>
+            .row{
+                display:flex;
+            }
+            .row:nth-child(1){
+                background-color:red;
+            }
+            .column{
+                flex:auto;
+            }
+            .column:hover{
+                color:blue;
+                background-color: beige;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Covid RX Detection</h1>
+        <div class="row">
+            <div class="column">
+                <h2>RX Image</h2>
+                <img src="../COVID (13).png" height="70%" alt="">
+            </div>
+            <div class="column">
+                <h2>Heatmap</h2>
+                <img src="../image.png" height="70%" alt="">
+            </div>
+        </div>
+        <footer>Copywright &copy; David Navarro & Manuel Jaramillo</footer>
+    </body>
 </html>
+
