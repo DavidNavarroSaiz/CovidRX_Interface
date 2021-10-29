@@ -1,0 +1,85 @@
+<!doctype html>
+
+<html lang="en-US">
+    
+    <head>
+        <meta charset = "utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title> Covid RX - Universidad del Magdalena </title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>    
+        <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet"> 
+        <link rel="icon" href="{{ url_for('static',filename='images/icons/icon2.png')}}">
+        <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.min.css')}}">
+        <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css')}}">
+        
+        <!-- jQuery (bootstrap depends on it) -->
+        <script src="{{ url_for('static',filename='js/jquery-3.6.0.min.js')}}"></script>
+        <script src="{{ url_for('static',filename='js/bootstrap.min.js')}}" ></script>
+        <script src="{{ url_for('static',filename='js/script.js')}}"></script>
+    </head>
+
+    <body>
+
+        <header>
+            <nav id="header-nav" class="navbar navbar-default">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a href="index.html" class="pull-left visible-lg">   
+                            <div id="logo-img"></div>
+                        </a>
+                        <div class="navbar-brand">
+                            <a href="index.html"><h1>Covid RX</h1></a>
+                        </div>
+                        <span>&copy; Universidad del Magdalena</span>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                          Modelos
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                          <li><button class="dropdown-item" type="button" id="vgg">Vgg19</button></li>
+                          <li><button class="dropdown-item" type="button" id="dense">DenseNet</button></li>
+                          <li><button class="dropdown-item" type="button" id="mobil">MobileNet</button></li>
+                          <li><button class="dropdown-item" type="button" id="alex">AlexNet</button></li>
+                          <li><button class="dropdown-item" type="button" id="efficient">EfficientNet</button></li>
+                          <li><button class="dropdown-item" type="button" id="inception">InceptionV3</button></li>
+                          <li><button class="dropdown-item" type="button" id="resnet">ResNet</button></li>
+                          <li><button class="dropdown-item" type="button" id="rexnet">RexNet</button></li>
+                        </ul>
+                      </div>
+                </div>
+            </nav>
+        </header>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-5">
+                    <form method="POST">
+                        <input type="file" id="imgupload" style="display:none"/>
+                    </form>
+                    <button id="load_button" class="btn btn-secondary">Cargar imagen</button>
+                    <img id="imgRX" class="responsive" >
+                    <!-- <img src="{{ url_for('static',filename='images/COVID(13).png')}}" class="responsive" alt=""> -->
+                </div>
+                <div class="col-sm-5">
+                    <button id="eval" class="btn btn-secondary" >Diagnóstico</button>
+                    <div id="loading"></div>
+                    <!-- <img id="imgHeatMap" class="responsive"> -->
+                    <!-- <img src="{{ url_for('static',filename='images/image2.png')}}" alt=""> -->
+                </div>
+                <div class="col-sm-1"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-2" id="bold">Diagnósitico:</div>
+            <div class="col-sm-2"></div>
+            <div class="col-sm-4"></div>
+        </div>
+        <footer>Copywright &copy; Universidad del Magdalena</footer>
+    </body>
+
+</html>
+

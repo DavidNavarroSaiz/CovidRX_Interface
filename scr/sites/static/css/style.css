@@ -12,7 +12,7 @@ body{
 }
 
 #logo-img{
-    background: url("../../scr/views/icons/icon2.png") no-repeat;
+    background: url("../images/icons/icon2.png") no-repeat;
     background-size: 50px;
     width: 50px;
     height: 50px;
@@ -42,4 +42,22 @@ footer{
 }
 .navbar-brand a {
     text-decoration: none;
+}
+
+.btn{
+    margin: 1%;
+}
+
+#bold{
+    font-weight: bold;
+}
+
+#loading {
+    background: url('spinner.gif') no-repeat center center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 9999999;
 }
