@@ -9,14 +9,27 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>    
         <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet"> 
+        
+        <!-- Flask -->
         <link rel="icon" href="{{ url_for('static',filename='images/icons/icon2.png')}}">
         <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.min.css')}}">
         <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css')}}">
         
-        <!-- jQuery (bootstrap depends on it) -->
+        <!-- Flask -->
+        <!-- <link rel="icon" href="../static/images/icons/icon2.png">
+        <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../static/css/style.css"> -->
+        
+        <!-- jQuery (bootstrap depends on it) Flask-->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="{{ url_for('static',filename='js/jquery-3.6.0.min.js')}}"></script>
         <script src="{{ url_for('static',filename='js/bootstrap.min.js')}}" ></script>
-        <script src="{{ url_for('static',filename='js/script.js')}}"></script>
+        <script src="{{ url_for('static',filename='js/script.js')}}"></script>  
+        
+        <!-- jQuery (bootstrap depends on it) Live Server -->
+        <!-- <script src="../static/js/jquery-3.6.0.min.js"></script>
+        <script src="../static/js/bootstrap.min.js" ></script>
+        <script src="../static/js/script.js"></script> -->
     </head>
 
     <body>
@@ -55,28 +68,27 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-1"></div>
-                <div class="col-sm-5">
-                    <form method="POST">
-                        <input type="file" id="imgupload" style="display:none"/>
-                    </form>
+                <div class="col-sm-5 text-center">
+                    <input type="file" id="imgupload" style="display:none"/>
                     <button id="load_button" class="btn btn-secondary">Cargar imagen</button>
                     <img id="imgRX" class="responsive" >
                     <!-- <img src="{{ url_for('static',filename='images/COVID(13).png')}}" class="responsive" alt=""> -->
                 </div>
-                <div class="col-sm-5">
+                <div class="col-sm-5 text-center">
                     <button id="eval" class="btn btn-secondary" >Diagnóstico</button>
-                    <div id="loading"></div>
-                    <!-- <img id="imgHeatMap" class="responsive"> -->
+                    <img id="imgHeatMap" class="responsive">
                     <!-- <img src="{{ url_for('static',filename='images/image2.png')}}" alt=""> -->
                 </div>
                 <div class="col-sm-1"></div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-4"></div>
-            <div class="col-sm-2" id="bold">Diagnósitico:</div>
-            <div class="col-sm-2"></div>
-            <div class="col-sm-4"></div>
+            <div class="row">
+                <div class="col-sm-4"></div>
+                <div class="col">
+                    <canvas id="myChart">a</canvas>
+                </div>
+                <div class="col-sm-4"></div>
+            </div>
+            <div class="row">
         </div>
         <footer>Copywright &copy; Universidad del Magdalena</footer>
     </body>

@@ -11,6 +11,7 @@ body{
     border: 0;
 }
 
+
 #logo-img{
     background: url("../images/icons/icon2.png") no-repeat;
     background-size: 50px;
@@ -52,12 +53,10 @@ footer{
     font-weight: bold;
 }
 
-#loading {
-    background: url('spinner.gif') no-repeat center center;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    z-index: 9999999;
+.row{
+    margin: 2%;
+}
+
+canvas{
+    visibility: hidden;
 }

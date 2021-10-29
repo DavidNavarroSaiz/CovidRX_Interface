@@ -133,6 +133,7 @@ class Events():
     #     super().__init__()
     #     self.window = window
 #
+
     def run(self,json_data):
         """
         Evaluate a list of models
@@ -162,26 +163,26 @@ class Events():
             self.filename = a+"\\scr\\sites\\static\\images\\"+json_data["img_file"]
             controller.load__transformed_image( self.filename)
             prob_covid, prob_normal,prob_viral = controller.evaluate()
-            # self.rgbimage,result_actmap,prob_normal,prob_viral,prob_covid = controller.heat_map()
+            self.rgbimage,result_actmap,prob_normal,prob_viral,prob_covid = controller.heat_map()
             self.probabilities_normal.append(prob_normal)
             self.probabilities_viral.append(prob_viral)
             self.probabilities_covid.append(prob_covid)
-            # if (result_actmap.shape[0]< 7):
-            #     padding = np.pad(result_actmap, ((1, 0), (1, 0)), 'constant', constant_values=(0, 0))
-            #     result_actmap  =padding
-            # elif(result_actmap.shape[0]> 7):
-            #     result_actmap = result_actmap[1:8, 1:8]
-            # else:
-            #     result_actmap = result_actmap
-            # result_actmap = result_actmap[1:7, 1:6]
-            # if model_counter == 0 :
-            #     self.result_ActivationMap= result_actmap 
-            # else:
-            #     self.result_ActivationMap= result_actmap + self.result_ActivationMap
+            if (result_actmap.shape[0]< 7):
+                padding = np.pad(result_actmap, ((1, 0), (1, 0)), 'constant', constant_values=(0, 0))
+                result_actmap  =padding
+            elif(result_actmap.shape[0]> 7):
+                result_actmap = result_actmap[1:8, 1:8]
+            else:
+                result_actmap = result_actmap
+            result_actmap = result_actmap[1:7, 1:6]
+            if model_counter == 0 :
+                self.result_ActivationMap= result_actmap 
+            else:
+                self.result_ActivationMap= result_actmap + self.result_ActivationMap
 
             
             model_counter += 1
-        # self.FinalActivationMap = (self.result_ActivationMap / len(self.model_list))*(1.5+len(self.model_list)/8)
+        self.FinalActivationMap = (self.result_ActivationMap / len(self.model_list))*(1.5+len(self.model_list)/8)
         return self.compute_final_results()
         
 
@@ -206,6 +207,11 @@ class Events():
             "Viral" : list_probabilities[1],
             "Normal" : list_probabilities[0]
         }
+        result = overlay_mask(to_pil_image(self.rgbimage), to_pil_image(self.FinalActivationMap, mode='F'), alpha=0.7)
+        self.img_result = np.array(result)
+        a = os.path.abspath('')               
+        
+        cv2.imwrite(a+"\\scr\\sites\\static\\images\\"+"heatmap.png",self.img_result)
         return probabilities
 
     def display_results(self):
