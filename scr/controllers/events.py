@@ -188,7 +188,8 @@ class Events():
                 result_actmap = result_actmap[1:8, 1:8]
             else:
                 result_actmap = result_actmap
-            result_actmap = result_actmap[1:7, 1:6]
+            result_actmap = result_actmap[0:7, 0:7]
+            result_actmap = np.pad(result_actmap, ((2, 2), (2, 2)), 'constant', constant_values=(0.3, 0.3))
             if model_counter == 0 :
                 self.result_ActivationMap= result_actmap 
             else:
