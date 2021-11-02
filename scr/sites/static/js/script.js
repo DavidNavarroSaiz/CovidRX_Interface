@@ -12,7 +12,18 @@ $(function () {
     $(".dropdown-item")[5].checked = false;
     $(".dropdown-item")[6].checked = false;
     $(".dropdown-item")[7].checked = false;
-
+ 
+    var imgBase64;
+    function getBase64(file) {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            imgBase64 = reader.result;
+        };
+        reader.onerror = function (error) {
+            console.log('Error: ', error);
+        };
+    }
 
     const ctx = $('#myChart');
     const myChart = new Chart(ctx, {
@@ -51,6 +62,8 @@ $(function () {
     $("#imgupload").change(function (event){
         var image = document.getElementById('imgRX');
         image.src = URL.createObjectURL( event.target.files[0]);
+        image.height = image.width;
+        getBase64(event.target.files[0]);
         path = event.target.files[0].name;
         $("#dropdown")[0].disabled = false; 
     });
@@ -65,22 +78,21 @@ $(function () {
             "inception":$("#inception")[0].checked,
             "resnet":$("#resnet")[0].checked,
             "rexnet":$("#rexnet")[0].checked,
-            "img_file":path
+            "img64":imgBase64
         };
         $.post('/evaluate',json_object).done(function(data){
-                $("#imgHeatMap")[0].src = "static/images/heatmap.png";
-                $(".piechart").css("visibility","visible");
-                myChart.data.datasets[0].data[0] = data['Covid'];
-                myChart.data.datasets[0].data[1] = data['Normal'];
-                myChart.data.datasets[0].data[2] = data['Viral'];
-                
-                var max = 'Covid';
-                if(data['Normal']>max){max='Normal';}
-                if(data['Viral']>max){max='Viral';}
-                myChart.data.datasets[0].label = "Diagnostico: " + max;
-                myChart.update();
-                ctx.css("visibility","visible");
+            myChart.data.datasets[0].data[0] = data['Covid'];
+            myChart.data.datasets[0].data[1] = data['Normal'];
+            myChart.data.datasets[0].data[2] = data['Viral'];
+            $("#imgHeatMap")[0].src = "data:image/png;base64,"+data['img64'];
 
+            var max = 'Covid';
+            if(data['Normal']>data[max]){max='Normal';}
+            if(data['Viral']>max){max='Viral';}
+
+            myChart.data.datasets[0].label = "Diagnostico: " + max;
+            myChart.update();
+            ctx.css("visibility","visible");
             });
         });
         

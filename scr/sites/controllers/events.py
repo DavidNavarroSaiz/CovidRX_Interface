@@ -9,6 +9,7 @@ from PySide2.QtGui import *
 from torchcam.utils import overlay_mask
 from torchvision.transforms.functional import normalize, resize, to_pil_image
 import torch.nn.functional as F
+import base64
 
 class Events():
     """
@@ -133,12 +134,19 @@ class Events():
     #     super().__init__()
     #     self.window = window
 #
+    def data_uri_to_cv2_img(self, uri):
+        encoded_data = uri.split(',')[1]
+        nparr = np.fromstring(base64.b64decode(encoded_data), np.uint8)
+        img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+        return img
 
     def run(self,json_data):
         """
         Evaluate a list of models
         
         """
+        image64 = json_data["img64"]
+        mat = self.data_uri_to_cv2_img(image64)
         self.probabilities_normal = []
         self.probabilities_viral = []
         self.probabilities_covid = []
@@ -159,9 +167,7 @@ class Events():
             print("Evaluating model: ",self.model_list[model_counter])
             controller = ModelController()
             controller.load_model(model)
-            a = os.path.abspath('')               
-            self.filename = a+"\\scr\\sites\\static\\images\\"+json_data["img_file"]
-            controller.load__transformed_image( self.filename)
+            controller.load__transformed_image(mat)
             prob_covid, prob_normal,prob_viral = controller.evaluate()
             self.rgbimage,result_actmap,prob_normal,prob_viral,prob_covid = controller.heat_map()
             self.probabilities_normal.append(prob_normal)
@@ -174,7 +180,8 @@ class Events():
                 result_actmap = result_actmap[1:8, 1:8]
             else:
                 result_actmap = result_actmap
-            result_actmap = result_actmap[1:7, 1:6]
+            result_actmap = result_actmap[0:7, 0:7]
+            result_actmap = np.pad(result_actmap, ((2, 2), (2, 2)), 'constant', constant_values=(0.3, 0.3))
             if model_counter == 0 :
                 self.result_ActivationMap= result_actmap 
             else:
@@ -201,16 +208,19 @@ class Events():
         self.final_prediction = labels[np.argmax(list_probabilities)]
         # self.window.FinalPrediction.setObjectName(self.final_prediction) 
         # print(covid_prob)
-        # self.display_results()
-        probabilities = {
-            "Covid" : list_probabilities[2],
-            "Viral" : list_probabilities[1],
-            "Normal" : list_probabilities[0]
-        }
         result = overlay_mask(to_pil_image(self.rgbimage), to_pil_image(self.FinalActivationMap, mode='F'), alpha=0.7)
         self.img_result = np.array(result)
         a = os.path.abspath('')               
         
+        _, buffer = cv2.imencode('.png',self.img_result)
+        img_base64 = base64.b64encode(buffer)
+        # self.display_results()
+        probabilities = {
+            "Covid" : list_probabilities[2],
+            "Viral" : list_probabilities[1],
+            "Normal" : list_probabilities[0],
+            "img64" : img_base64.decode('utf-8')
+        }
         cv2.imwrite(a+"\\scr\\sites\\static\\images\\"+"heatmap.png",self.img_result)
         return probabilities
 

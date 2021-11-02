@@ -92,12 +92,11 @@ class ModelController():
         self.cam_extractor3 = GradCAMpp(self.model,self.target_layers)
         self.cam_extractor4 = GradCAM(self.model,self.target_layers)
         
-    def load__transformed_image(self,image_path):
+    def load__transformed_image(self,img):
         """
         Load image and apply transformations
         """
 
-        img = cv2.imread(image_path)
         self.rgbimage = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         self.rgbimage = cv2.resize(self.rgbimage, (256, 256)) 
         if (self.model_name == "InceptionV3"):
@@ -110,7 +109,7 @@ class ModelController():
                     torchvision.transforms.ToTensor(),
                     torchvision.transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
                     ])
-        img_pil = Image.open(image_path)
+        img_pil = Image.fromarray(img)
         self.image = img_pil.convert('RGB')
         self.image_transformed = transform(self.image)
         
