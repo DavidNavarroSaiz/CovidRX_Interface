@@ -28,5 +28,6 @@ if __name__ == '__main__':
     app = QtWidgets.QApplication([])
     window = MainWindow()
     controller = Events(window)
-    window.window.show()
-    app.exit(app.exec_())
+    # window.window.show()
+    sys.exit(app.exec_())
+    # app.exit()

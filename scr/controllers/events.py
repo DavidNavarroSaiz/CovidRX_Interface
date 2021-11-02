@@ -9,6 +9,9 @@ from PySide2.QtGui import *
 from torchcam.utils import overlay_mask
 from torchvision.transforms.functional import normalize, resize, to_pil_image
 import torch.nn.functional as F
+from collections import Counter
+from scipy.stats import mode
+from scipy import stats
 class Loading():
     def __init__(self, label):
         super().__init__()
@@ -36,26 +39,27 @@ class Events():
     def __init__(self, mainWindow):
         self.window = mainWindow.window
         self.connectButtons()
-
+        mainWindow.show()
     def connectButtons(self):
         """
         Connect each button with is respective event
         """
         self.window.pushload.clicked.connect(self.load_image)
-        self.window.pushButtonRun.pressed.connect(self.loading)
+        # self.window.pushButtonRun.pressed.connect(self.loading)
         self.window.pushButtonRun.released.connect(self.run)
         self.window.SaveButton.clicked.connect(self.save_image)
-        self.window.pushButtonRun.setEnabled(False)
-        self.window.pushButtonRun.setText("Select Models on the top Menu")
-        self.window.actionVgg19.changed.connect(self.activate_run)
-        self.window.actionDenseNet.changed.connect(self.activate_run)
-        self.window.actionMobileNet.changed.connect(self.activate_run)
-        self.window.actionAlexNet.changed.connect(self.activate_run)
-        self.window.actionEfficientNet.changed.connect(self.activate_run)
-        self.window.actionInceptionV3.changed.connect(self.activate_run)
-        self.window.actionResNet_2.changed.connect(self.activate_run)
-        self.window.actionRexNet.changed.connect(self.activate_run)
-        
+        self.window.pushButtonRun.setEnabled(True)
+        # self.window.pushButtonRun.setText("    Select the desired Models   ")
+        # self.window.actionVgg19
+        # self.window.actionVgg19.changed.connect(self.activate_run)
+        # self.window.actionDenseNet.changed.connect(self.activate_run)
+        # self.window.actionMobileNet.changed.connect(self.activate_run)
+        # self.window.actionAlexNet.changed.connect(self.activate_run)
+        # self.window.actionEfficientNet.changed.connect(self.activate_run)
+        # self.window.actionInceptionV3.changed.connect(self.activate_run)
+        # self.window.actionResNet_2.changed.connect(self.activate_run)
+        # self.window.actionRexNet.changed.connect(self.activate_run)
+        # self.window.listWidget.changed.connect(self.activate_run)
     def load_image(self):
         """
         Load and display the coresponding image
@@ -67,54 +71,26 @@ class Events():
         self.window.label_4.setPixmap(pixmap_resized)
         self.window.label_4.setScaledContents(True)
         self.window.Filename.setObjectName(self.filename)  
-        # BGR_image = cv2.imread(filename)
-        # RGB_image = cv2.cvtColor(BGR_image, cv2.COLOR_BGR2RGB)
-        # cv2.imshow('image', RGB_image)
-        # #waits for user to press any key 
-        # #(this is necessary to avoid Python kernel form crashing)
-        # cv2.waitKey(0) 
-        # #closing all open windows 
-        # cv2.destroyAllWindows() 
-    
-    def evaluate_image(self):
-        
-        """
-        Evaluate the image using CNN
 
-        """
-        a = os.path.abspath('')               
-        # path_model = a+"\\scr\\resources\\saved_models\\vgg19.pt"
-        
-        controller = ModelController()
-        controller.load_model("Rexnet")
-        controller.load__transformed_image(self.filename)
-        
-        controller.evaluate()
-        result,prediction,proba = controller.heat_map()
-        h,w,z = np.shape(result)
-        
-        
-        QResult = QtGui.QImage(result.data, h, w, 3*h, QtGui.QImage.Format_RGB888)  
-        self.imagePixmap_result = QtGui.QPixmap.fromImage(QResult)
-        self.window.label_5.setPixmap(self.imagePixmap_result)
-        self.window.label_5.setScaledContents(True)  
-        self.window.label.setText(str(prediction))
+    
+    
 
     def save_image(self):
         self.filename,_ = QtWidgets.QFileDialog.getSaveFileName(None,"Save image file", "image.png","image files(*.jpg *.jpeg *.png)")
         self.window.label_5.pixmap().save(self.filename)
 
     def popup(self):
+
         self.final_prediction = self.window.FinalPrediction.objectName()
         if (self.final_prediction == "covid" ):
         # QMessageBox.about(self.window, "AboutBox", "This is about application")
-            QMessageBox.warning(self.window, "Warning", "You have a chance of "+str(round(self.window.progressBar_3.value(),2))+'%' 
+            QMessageBox.warning(None, "Warning", "You have a chance of "+str(round(self.window.progressBar_3.value(),2))+'%' 
                                 ' of having COVID-19 dissease \n Please communicate with your medical entity ')
         elif(self.final_prediction=="viral"):
-            QMessageBox.warning(self.window,"Warning","you have a chance of "+str(round(self.window.progressBar_2.value(),2))+'%'' of having pneumonia \n Please communicate with your medical entity')
+            QMessageBox.warning(None,"Warning","you have a chance of "+str(round(self.window.progressBar_2.value(),2))+'%'' of having pneumonia \n Please communicate with your medical entity')
         
         elif(self.final_prediction == "normal"):
-            QMessageBox.warning(self.window,"Warning","you have a chance of "+str(round(self.window.progressBar_1.value(),2))+'%'' of being OK \n Congratulations')
+            QMessageBox.warning(None,"Warning","you have a chance of "+str(round(self.window.progressBar.value(),2))+'%'' of being OK \n Congratulations')
 
     def loading(self):
         # dir_path = pathlib.Path(__file__).parent.parent.resolve().as_posix()
@@ -125,11 +101,16 @@ class Events():
         print("displayed image")
 
     def activate_run(self):
+        
+        
         statement = (
             self.window.actionVgg19.isChecked() | self.window.actionDenseNet.isChecked() | self.window.actionMobileNet.isChecked() |
             self.window.actionAlexNet.isChecked() | self.window.actionEfficientNet.isChecked() | self.window.actionInceptionV3.isChecked() |
-            self.window.actionResNet_2.isChecked() | self.window.actionRexNet.isChecked()
+            self.window.actionResNet_2.isChecked() | self.window.actionRexNet.isChecked() | self.window.actionInception_ResNet.isChecked() |
+            self.window.actionXception.isChecked()
         )
+        
+        
         self.window.pushButtonRun.setEnabled(True) if statement else self.window.pushButtonRun.setEnabled(False)
         self.window.pushButtonRun.setText("Run diagnosis") if statement else self.window.pushButtonRun.setText("Select Models on the top Menu")
 
@@ -162,19 +143,24 @@ class Events():
         self.model_list = []
 
         if self.window.actionVgg19.isChecked(): self.model_list.append("Vgg19")
-        if self.window.actionDenseNet.isChecked(): self.model_list.append("Densenet")
-        if self.window.actionMobileNet.isChecked(): self.model_list.append("Mobilenet")
-        if self.window.actionAlexNet.isChecked(): self.model_list.append("Alexnet")
-        if self.window.actionEfficientNet.isChecked(): self.model_list.append("Efficientnet")
+        if self.window.actionDenseNet.isChecked(): self.model_list.append("DenseNet")
+        if self.window.actionMobileNet.isChecked(): self.model_list.append("MobileNet")
+        if self.window.actionAlexNet.isChecked(): self.model_list.append("AlexNet")
+        if self.window.actionEfficientNet.isChecked(): self.model_list.append("EfficientNet")
         if self.window.actionInceptionV3.isChecked(): self.model_list.append("InceptionV3")
-        if self.window.actionResNet_2.isChecked(): self.model_list.append("Resnet")
-        if self.window.actionRexNet.isChecked(): self.model_list.append("Rexnet")
+        if self.window.actionResNet_2.isChecked(): self.model_list.append("ResNet")
+        if self.window.actionInception_ResNet.isChecked(): self.model_list.append("Inception_ResNet")
+        if self.window.actionXception.isChecked(): self.model_list.append("Xception")
         model_counter = 0
+        # items = self.window.listWidget.selectedItems()
+        # selected = []
+        # for index in range (len(items)):
+        #     self.model_list.append(self.window.listWidget.selectedItems()[index].text())
+            
         for model in self.model_list:
             print("Evaluating model: ",self.model_list[model_counter])
             controller = ModelController()
             controller.load_model(model)
-            #self.filename = 'C:/Users/ManulitoxD/Desktop/Covid-RX/CovidRX_Interface/COVID (13).png'
             controller.load__transformed_image( self.filename)
             controller.evaluate()
             self.rgbimage,result_actmap,prob_normal,prob_viral,prob_covid = controller.heat_map()
@@ -182,7 +168,7 @@ class Events():
             self.probabilities_viral.append(prob_viral)
             self.probabilities_covid.append(prob_covid)
             if (result_actmap.shape[0]< 7):
-                padding = np.pad(result_actmap, ((1, 0), (1, 0)), 'constant', constant_values=(0, 0))
+                padding = np.pad(result_actmap, ((7-result_actmap.shape[0], 0), (7-result_actmap.shape[0], 0)), 'constant', constant_values=(0, 0))
                 result_actmap  =padding
             elif(result_actmap.shape[0]> 7):
                 result_actmap = result_actmap[1:8, 1:8]
@@ -198,6 +184,14 @@ class Events():
             
             model_counter += 1
         self.FinalActivationMap = (self.result_ActivationMap / len(self.model_list))*(1.5+len(self.model_list)/8)
+        res = stats.mode(self.FinalActivationMap.ravel())[0][0]
+        self.FinalActivationMap = (self.FinalActivationMap>res)*self.FinalActivationMap
+        # print(Counter(self.FinalActivationMap).most_common()[0][0])
+        
+        # x_unique = np.bincount(np.ravel(self.FinalActivationMap.astype(float))).argmax()
+        # print(x_unique)
+        # torch.where(inp >= threshold, inp, value)
+        # most_common=  
         self.compute_final_results()
         
 
@@ -234,6 +228,68 @@ class Events():
 
         self.window.label_5.setPixmap(self.imagePixmap_result)
         self.window.label_5.setScaledContents(True)  
+        
+        DEFAULT_STYLE = """
+        QProgressBar{
+            border: 2px solid grey;
+            text-align: center
+        }
+
+        QProgressBar::chunk {
+            background-color: #5DE43F;
+            width: 10px;
+            
+            margin: 1px;
+        }
+        """
+        warning_STYLE = """
+        QProgressBar{
+            border: 2px solid grey;
+            text-align: center
+        }
+
+        QProgressBar::chunk {
+            background-color: #FEC02F;
+            width: 10px;
+            margin: 1px;
+        }
+        """
+        danger_STYLE = """
+        QProgressBar{
+            border: 2px solid grey;
+            text-align: center
+        }
+
+        QProgressBar::chunk {
+            background-color: #FC3131;
+            width: 10px;
+            margin: 1px;
+        }
+        """
+        if (self.normal_prob<33): 
+            self.window.progressBar.setStyleSheet(DEFAULT_STYLE) 
+        elif (self.normal_prob>33 and self.normal_prob<66):
+            self.window.progressBar.setStyleSheet(warning_STYLE) 
+        else:
+            self.window.progressBar.setStyleSheet(danger_STYLE) 
+            
+        if (self.viral_prob<33): 
+            self.window.progressBar_2.setStyleSheet(DEFAULT_STYLE) 
+        elif (self.viral_prob>33 and self.viral_prob<66):
+            self.window.progressBar_2.setStyleSheet(warning_STYLE) 
+        else:
+            self.window.progressBar_2.setStyleSheet(danger_STYLE) 
+            
+        if (self.covid_prob<33): 
+            self.window.progressBar_3.setStyleSheet(DEFAULT_STYLE) 
+        elif (self.covid_prob>33 and self.covid_prob<66):
+            self.window.progressBar_3.setStyleSheet(warning_STYLE) 
+        else:
+            self.window.progressBar_3.setStyleSheet(danger_STYLE) 
+            
+            
+            
+            
         self.window.progressBar.setValue(self.normal_prob)
         self.window.progressBar_2.setValue(self.viral_prob)
         self.window.progressBar_3.setValue(self.covid_prob)
@@ -245,7 +301,7 @@ class ThreadLoading(QThread):
     def __init__(self,window):
         super().__init__()
         self.window = window
-        self.loading = Loading()
+        # self.loading = Loading()
 
     def run(self):
         print('corriendo')

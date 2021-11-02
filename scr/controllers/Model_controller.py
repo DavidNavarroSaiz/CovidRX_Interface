@@ -11,7 +11,7 @@ from torchvision.models.vgg import model_urls
 import torch.nn.functional as F
 import timm
 import pathlib
-
+from PySide2.QtWidgets import QApplication, QWidget, QPushButton, QMessageBox
 
 model_urls['vgg19'] = model_urls['vgg19'].replace('https://', 'http://')
 
@@ -30,9 +30,10 @@ class ModelController():
         """
         Load trained model
         """
+        
         self.model_name  = model_name
         dir_path = pathlib.Path(__file__).parent.parent.resolve().as_posix()
-
+        # try:
         if (self.model_name == "Vgg19"):
             path = dir_path + "/resources/saved_models/final_models/vgg19_1_3_0.97.pt"
             self.model = torchvision.models.vgg19(pretrained=True)
@@ -40,49 +41,62 @@ class ModelController():
             self.model.classifier[6]= torch.nn.Linear(in_features=4096, out_features=3)
             self.target_layers = 'features'
             
-        if(self.model_name == "Densenet"):
+        if(self.model_name == "DenseNet"):
             path = dir_path + "/resources/saved_models/final_models/dense_2_2_0.97.pt"
             self.model = torchvision.models.densenet201()
             self.model.classifier= torch.nn.Linear(in_features=1920, out_features=3)
             self.target_layers = 'features'
             
-        if(self.model_name == "Mobilenet"):
+        if(self.model_name == "MobileNet"):
             path = dir_path + "/resources/saved_models/final_models/mobilenetv3_3_7_5500_0.97.pt"
             self.model = timm.create_model('tf_mobilenetv3_large_075')
             self.model.classifier = torch.nn.Linear(in_features=1280, out_features=3)
             self.target_layers = 'blocks'
             
-        if(self.model_name == "Alexnet"):
+        if(self.model_name == "AlexNet"):
             path = dir_path + "/resources/saved_models/final_models/alex_final_16.0000_0.948.pt"
             self.model = torchvision.models.alexnet()
             self.model.classifier[6]= torch.nn.Linear(in_features=4096, out_features=3)
             self.target_layers  ='features'
             
-        if(self.model_name == "Efficientnet"):
+        if(self.model_name == "EfficientNet"):
             path = dir_path + "/resources/saved_models/final_models/efficientnetb7_1_3500_3_0.97.pt"
             self.model = timm.create_model('tf_efficientnet_b7_ns')
             self.model.classifier = torch.nn.Linear(in_features=2560, out_features=3)
             self.target_layers  ='blocks'
             
         if(self.model_name == "InceptionV3"):
-            path = dir_path + "/resources/saved_models/final_models/InceptionV3_3_8_0.95.pt"
+            path = dir_path + "/resources/saved_models/final_models/InceptionV3_5_14_300_0.96.pt"
             self.model = torchvision.models.inception_v3()
             self.model.AuxLogits.fc = torch.nn.Linear(768, 3)
             self.model.fc = torch.nn.Linear(2048, 3)
             self.target_layers  ='Mixed_7c'
             
-        if (self.model_name == "Resnet"):
+        if (self.model_name == "ResNet"):
             path = dir_path + "/resources/saved_models/final_models/ResNet152_11400_5_0.97.pt"
             self.model = torchvision.models.resnet152()
             self.model.fc = torch.nn.Linear(2048, 3)
             self.target_layers  ='layer4'
             
-        if (self.model_name == "Rexnet"):
-            path = dir_path + "/resources/saved_models/final_models/rexnet_3_7_7800_0.95.pt"
-            self.model = timm.create_model('rexnet_100')
-            self.model.classifier = torch.nn.Linear(in_features=2560, out_features=3)
+        if (self.model_name == "RexNet"):
+            path = dir_path + "/resources/saved_models/final_models/Rexnet_4_8_1800_0.96.pt"
+            self.model = timm.create_model('rexnet_200')
+            self.model.head.fc = torch.nn.Linear(in_features=2560, out_features=3)
             self.target_layers  ='features'
+        if (model_name == "Inception_ResNet"):
+            path = dir_path + "/resources/saved_models/final_models/inception_resnet_1_3_7100_0.96.pt"
+            self.model = timm.create_model('ens_adv_inception_resnet_v2')
+            self.model.classifier = torch.nn.Linear(in_features=1280, out_features=3)
+            self.target_layers = 'block8'
             
+        if (model_name == "Xception"):
+            path = dir_path + "/resources/saved_models/final_models/Xception_1_7_1700_0.97.pt"
+
+            self.model = timm.create_model('gluon_xception65')
+            self.model.fc = torch.nn.Linear(in_features=2048, out_features=3)
+            self.target_layers = 'block20_act'
+                
+        # dir_path + /resources/saved_models/final_models/
         self.model.eval()
         # self.model.to('cpu')
         self.model.load_state_dict(torch.load(path, map_location=torch.device('cpu')),strict=False)
@@ -91,7 +105,9 @@ class ModelController():
         self.cam_extractor2 = SmoothGradCAMpp(self.model,self.target_layers)
         self.cam_extractor3 = GradCAMpp(self.model,self.target_layers)
         self.cam_extractor4 = GradCAM(self.model,self.target_layers)
-        
+        # except:
+        #     QMessageBox.warning(None,"Error","Error loading model")
+
     def load__transformed_image(self,image_path):
         """
         Load image and apply transformations
