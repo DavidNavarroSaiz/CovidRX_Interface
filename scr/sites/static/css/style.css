@@ -11,7 +11,6 @@ body{
     border: 0;
 }
 
-
 #logo-img{
     background: url("../images/icons/icon2.png") no-repeat;
     background-size: 50px;
@@ -28,7 +27,7 @@ footer{
 
 .responsive{
     width: 100%;
-}   
+}
 
 .navbar-brand h1{
     color: #557c3e;
@@ -40,6 +39,7 @@ footer{
     margin-bottom: 0;
     line-height: .75;
 }
+
 .navbar-brand a {
     text-decoration: none;
 }
@@ -59,3 +59,34 @@ footer{
 canvas{
     visibility: hidden;
 }
+
+#heatmap{
+    position: relative;
+}
+
+#imgHeatMap{
+    position: relative;
+    width: 70%;
+}
+
+#imgRX{
+    width: 70%;
+}
+
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #557c3e; /* Blue */
+    border-radius: 50%;
+    width: 15vw;
+    height: 15vw;
+    animation: spin 2s linear infinite;
+    align-items: center;
+    position: relative;
+    visibility: hidden;
+}
+  
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+

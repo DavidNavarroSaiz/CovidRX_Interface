@@ -74,16 +74,20 @@
                     <img id="imgRX" class="responsive" >
                     <!-- <img src="{{ url_for('static',filename='images/COVID(13).png')}}" class="responsive" alt=""> -->
                 </div>
-                <div class="col-sm-4 text-center">
+                <div id="heatmap" class="col-sm-4 text-center">
                     <button id="eval" class="btn btn-secondary" >Diagnóstico</button>
                     <img id="imgHeatMap" class="responsive">
+                    <div class="row">
+                        <div class="col-sm-3"></div>
+                        <div id="loader" class="loader"></div> 
+                        </div>
+                    
                     <!-- <img src="{{ url_for('static',filename='images/image2.png')}}" alt=""> -->
                 </div>
-                <div class="col-sm-2"></div>
             </div>
             <div class="row">
                 <div class="col-sm-4"></div>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <canvas id="myChart">a</canvas>
                 </div>
                 <div class="col-sm-4"></div>

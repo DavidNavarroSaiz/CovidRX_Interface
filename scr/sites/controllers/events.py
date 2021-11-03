@@ -10,6 +10,7 @@ from torchcam.utils import overlay_mask
 from torchvision.transforms.functional import normalize, resize, to_pil_image
 import torch.nn.functional as F
 import base64
+from scipy import stats
 
 class Events():
     """
@@ -174,7 +175,7 @@ class Events():
             self.probabilities_viral.append(prob_viral)
             self.probabilities_covid.append(prob_covid)
             if (result_actmap.shape[0]< 7):
-                padding = np.pad(result_actmap, ((1, 0), (1, 0)), 'constant', constant_values=(0, 0))
+                padding = np.pad(result_actmap, ((7-result_actmap.shape[0], 0), (7-result_actmap.shape[0], 0)), 'constant', constant_values=(0, 0))
                 result_actmap  =padding
             elif(result_actmap.shape[0]> 7):
                 result_actmap = result_actmap[1:8, 1:8]
@@ -190,6 +191,8 @@ class Events():
             
             model_counter += 1
         self.FinalActivationMap = (self.result_ActivationMap / len(self.model_list))*(1.5+len(self.model_list)/8)
+        res = stats.mode(self.FinalActivationMap.ravel())[0][0]
+        self.FinalActivationMap = (self.FinalActivationMap>res)*self.FinalActivationMap
         return self.compute_final_results()
         
 
@@ -221,7 +224,7 @@ class Events():
             "Normal" : list_probabilities[0],
             "img64" : img_base64.decode('utf-8')
         }
-        cv2.imwrite(a+"\\scr\\sites\\static\\images\\"+"heatmap.png",self.img_result)
+        # cv2.imwrite(a+"\\scr\\sites\\static\\images\\"+"heatmap.png",self.img_result)
         return probabilities
 
     def display_results(self):

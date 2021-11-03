@@ -1,9 +1,9 @@
 
 
+
 $(function () {
     $("#eval")[0].disabled = true; 
-    $("#dropdown")[0].disabled = true; 
-
+    $("#dropdown")[0].disabled = false; 
     $(".dropdown-item")[0].checked = false;
     $(".dropdown-item")[1].checked = false;
     $(".dropdown-item")[2].checked = false;
@@ -12,7 +12,8 @@ $(function () {
     $(".dropdown-item")[5].checked = false;
     $(".dropdown-item")[6].checked = false;
     $(".dropdown-item")[7].checked = false;
- 
+    
+    var image = document.getElementById('imgRX');
     var imgBase64;
     function getBase64(file) {
         var reader = new FileReader();
@@ -27,7 +28,7 @@ $(function () {
 
     const ctx = $('#myChart');
     const myChart = new Chart(ctx, {
-        type: 'bar',
+        type: 'radar',
         data: {
             labels: ['Covid', 'Normal', 'Viral'],
             datasets: [{
@@ -60,7 +61,6 @@ $(function () {
     });
     
     $("#imgupload").change(function (event){
-        var image = document.getElementById('imgRX');
         image.src = URL.createObjectURL( event.target.files[0]);
         image.height = image.width;
         getBase64(event.target.files[0]);
@@ -80,11 +80,17 @@ $(function () {
             "rexnet":$("#rexnet")[0].checked,
             "img64":imgBase64
         };
+
+        $("#imgHeatMap")[0].src = "";
+        $(".loader").css("visibility","visible");
+        $(".loader").css("position","relative");
+
         $.post('/evaluate',json_object).done(function(data){
             myChart.data.datasets[0].data[0] = data['Covid'];
             myChart.data.datasets[0].data[1] = data['Normal'];
             myChart.data.datasets[0].data[2] = data['Viral'];
             $("#imgHeatMap")[0].src = "data:image/png;base64,"+data['img64'];
+            $(".loader").css("position","absolute");
 
             var max = 'Covid';
             if(data['Normal']>data[max]){max='Normal';}
@@ -93,13 +99,14 @@ $(function () {
             myChart.data.datasets[0].label = "Diagnostico: " + max;
             myChart.update();
             ctx.css("visibility","visible");
+            $(".loader").css("visibility","hidden");
             });
         });
         
         $(".dropdown-item").click(function (){
             $("#eval")[0].disabled = false; 
             if(this.style.backgroundColor == ""){
-                this.style.backgroundColor = "#83c45d";
+                this.style.backgroundColor = "#58aa29";
                 this.checked = true; 
             }else{
                 this.style.backgroundColor = "";
