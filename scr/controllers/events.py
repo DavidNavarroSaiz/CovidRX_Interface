@@ -56,17 +56,6 @@ class Events():
         self.window.pushButtonRun.released.connect(self.run)
         self.window.SaveButton.clicked.connect(self.save_image)
 
-        # self.window.pushButtonRun.setText("    Select the desired Models   ")
-        # self.window.actionVgg19
-        # self.window.actionVgg19.changed.connect(self.activate_run)
-        # self.window.actionDenseNet.changed.connect(self.activate_run)
-        # self.window.actionMobileNet.changed.connect(self.activate_run)
-        # self.window.actionAlexNet.changed.connect(self.activate_run)
-        # self.window.actionEfficientNet.changed.connect(self.activate_run)
-        # self.window.actionInceptionV3.changed.connect(self.activate_run)
-        # self.window.actionResNet_2.changed.connect(self.activate_run)
-        # self.window.actionRexNet.changed.connect(self.activate_run)
-        # self.window.listWidget.changed.connect(self.activate_run)
     def load_image(self):
         """
         Load and display the coresponding image

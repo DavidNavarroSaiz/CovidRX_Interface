@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>992</width>
+    <width>1021</width>
     <height>497</height>
    </rect>
   </property>
@@ -39,10 +39,15 @@
           <enum>QFrame::Raised</enum>
          </property>
          <layout class="QGridLayout" name="gridLayout_4">
-          <item row="3" column="0">
-           <widget class="QLabel" name="Filename">
+          <item row="0" column="1">
+           <widget class="QPushButton" name="SaveButton">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
             <property name="text">
-             <string/>
+             <string>     Save HeatMap     </string>
             </property>
            </widget>
           </item>
@@ -129,15 +134,10 @@
             </item>
            </layout>
           </item>
-          <item row="0" column="1">
-           <widget class="QPushButton" name="SaveButton">
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
+          <item row="4" column="0">
+           <widget class="QLabel" name="Filename">
             <property name="text">
-             <string>     Save HeatMap     </string>
+             <string/>
             </property>
            </widget>
           </item>
@@ -159,10 +159,17 @@
             </property>
            </widget>
           </item>
-          <item row="3" column="1">
-           <widget class="QLabel" name="label">
+          <item row="4" column="1">
+           <widget class="QLabel" name="logo_covid">
             <property name="text">
              <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QLabel" name="universidad">
+            <property name="text">
+             <string>UNIVERSIDAD DEL MAGDALENA</string>
             </property>
            </widget>
           </item>
@@ -201,6 +208,13 @@
               </size>
              </property>
             </spacer>
+           </item>
+           <item>
+            <widget class="QLabel" name="done_load">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="QPushButton" name="pushload">
@@ -275,6 +289,13 @@
             </spacer>
            </item>
            <item>
+            <widget class="QLabel" name="done_run">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QPushButton" name="pushButtonRun">
              <property name="font">
               <font>
@@ -341,7 +362,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>992</width>
+     <width>1021</width>
      <height>21</height>
     </rect>
    </property>
