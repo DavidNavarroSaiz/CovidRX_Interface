@@ -9,13 +9,14 @@ class StylesMainWindow ():
         # self.setIcons()
         
     def set_colors(self):
-        self.hover_button = '#9E9E9E'
+        self.hover_button = '#474747'
         self.background = '#D1D1D1'
-        self.buttons = '#DDDBF1'
-        self.disabled_button = '#86FB79'
+        self.buttons = '#6E6E6E'
+        self.disabled_button = '#C2C2C2'
         self.frame_image = '#D1D1D1'
         self.primaryText = '#000'
         self.secondaryText = '#000'
+        self.disbled_buttons = '#E3E3E3'
         
     # def setIcons(self):
         
@@ -49,7 +50,8 @@ class StylesMainWindow ():
                 border-style: inset;
             } 
             QPushButton:disabled{ 
-                Background: """ + self.disabled_button + """;
+                Background-color: """ + self.disabled_button + """;
+                color:  """ + self.disbled_buttons + """;
                 min-height: 40px;
                 border-radius: 2px;
                 border: 1px solid #000}

@@ -17,7 +17,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(992, 497)
+        MainWindow.resize(1021, 497)
         font = QFont()
         font.setBold(False)
         font.setWeight(50)
@@ -90,10 +90,13 @@ class Ui_MainWindow(object):
         self.frame.setFrameShadow(QFrame.Raised)
         self.gridLayout_4 = QGridLayout(self.frame)
         self.gridLayout_4.setObjectName(u"gridLayout_4")
-        self.Filename = QLabel(self.frame)
-        self.Filename.setObjectName(u"Filename")
+        self.SaveButton = QPushButton(self.frame)
+        self.SaveButton.setObjectName(u"SaveButton")
+        font1 = QFont()
+        font1.setPointSize(12)
+        self.SaveButton.setFont(font1)
 
-        self.gridLayout_4.addWidget(self.Filename, 3, 0, 1, 1)
+        self.gridLayout_4.addWidget(self.SaveButton, 0, 1, 1, 1)
 
         self.gridLayout_3 = QGridLayout()
         self.gridLayout_3.setObjectName(u"gridLayout_3")
@@ -130,21 +133,21 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.label_2 = QLabel(self.frame)
         self.label_2.setObjectName(u"label_2")
-        font1 = QFont()
-        font1.setPointSize(11)
-        self.label_2.setFont(font1)
+        font2 = QFont()
+        font2.setPointSize(11)
+        self.label_2.setFont(font2)
 
         self.verticalLayout_2.addWidget(self.label_2)
 
         self.label_6 = QLabel(self.frame)
         self.label_6.setObjectName(u"label_6")
-        self.label_6.setFont(font1)
+        self.label_6.setFont(font2)
 
         self.verticalLayout_2.addWidget(self.label_6)
 
         self.label_7 = QLabel(self.frame)
         self.label_7.setObjectName(u"label_7")
-        self.label_7.setFont(font1)
+        self.label_7.setFont(font2)
 
         self.verticalLayout_2.addWidget(self.label_7)
 
@@ -160,25 +163,27 @@ class Ui_MainWindow(object):
 
         self.gridLayout_4.addLayout(self.gridLayout_3, 2, 0, 1, 3)
 
-        self.SaveButton = QPushButton(self.frame)
-        self.SaveButton.setObjectName(u"SaveButton")
-        font2 = QFont()
-        font2.setPointSize(12)
-        self.SaveButton.setFont(font2)
+        self.Filename = QLabel(self.frame)
+        self.Filename.setObjectName(u"Filename")
 
-        self.gridLayout_4.addWidget(self.SaveButton, 0, 1, 1, 1)
+        self.gridLayout_4.addWidget(self.Filename, 4, 0, 1, 1)
 
         self.FinalPrediction = QLabel(self.frame)
         self.FinalPrediction.setObjectName(u"FinalPrediction")
         self.FinalPrediction.setMaximumSize(QSize(16777215, 30))
-        self.FinalPrediction.setFont(font2)
+        self.FinalPrediction.setFont(font1)
 
         self.gridLayout_4.addWidget(self.FinalPrediction, 1, 1, 1, 1)
 
-        self.label = QLabel(self.frame)
-        self.label.setObjectName(u"label")
+        self.logo_covid = QLabel(self.frame)
+        self.logo_covid.setObjectName(u"logo_covid")
 
-        self.gridLayout_4.addWidget(self.label, 3, 1, 1, 1)
+        self.gridLayout_4.addWidget(self.logo_covid, 4, 1, 1, 1)
+
+        self.universidad = QLabel(self.frame)
+        self.universidad.setObjectName(u"universidad")
+
+        self.gridLayout_4.addWidget(self.universidad, 3, 1, 1, 1)
 
 
         self.gridLayout.addWidget(self.frame, 0, 2, 1, 1)
@@ -197,6 +202,11 @@ class Ui_MainWindow(object):
         self.horizontalSpacer_5 = QSpacerItem(30, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.horizontalLayout_4.addItem(self.horizontalSpacer_5)
+
+        self.done_load = QLabel(self.frameDisplayImage)
+        self.done_load.setObjectName(u"done_load")
+
+        self.horizontalLayout_4.addWidget(self.done_load)
 
         self.pushload = QPushButton(self.frameDisplayImage)
         self.pushload.setObjectName(u"pushload")
@@ -234,6 +244,11 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_5.addItem(self.horizontalSpacer_7)
 
+        self.done_run = QLabel(self.frameDisplayImage)
+        self.done_run.setObjectName(u"done_run")
+
+        self.horizontalLayout_5.addWidget(self.done_run)
+
         self.pushButtonRun = QPushButton(self.frameDisplayImage)
         self.pushButtonRun.setObjectName(u"pushButtonRun")
         font4 = QFont()
@@ -260,7 +275,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 992, 21))
+        self.menubar.setGeometry(QRect(0, 0, 1021, 21))
         self.menuMen = QMenu(self.menubar)
         self.menuMen.setObjectName(u"menuMen")
         self.menuHelp = QMenu(self.menubar)
@@ -314,16 +329,19 @@ class Ui_MainWindow(object):
         self.actionXception.setText(QCoreApplication.translate("MainWindow", u"Xception", None))
         self.labelLogoFlir.setText("")
         self.labelLogo.setText("")
-        self.Filename.setText("")
+        self.SaveButton.setText(QCoreApplication.translate("MainWindow", u"     Save HeatMap     ", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"  Normal  ", None))
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"  Pneumonia", None))
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"  Covid", None))
-        self.SaveButton.setText(QCoreApplication.translate("MainWindow", u"     Save HeatMap     ", None))
+        self.Filename.setText("")
         self.FinalPrediction.setText("")
-        self.label.setText("")
+        self.logo_covid.setText("")
+        self.universidad.setText(QCoreApplication.translate("MainWindow", u"UNIVERSIDAD DEL MAGDALENA", None))
         self.label_4.setText("")
+        self.done_load.setText("")
         self.pushload.setText(QCoreApplication.translate("MainWindow", u"      Load Image      ", None))
         self.label_5.setText("")
+        self.done_run.setText("")
         self.pushButtonRun.setText(QCoreApplication.translate("MainWindow", u"     Run diagnosis     ", None))
         self.menuMen.setTitle(QCoreApplication.translate("MainWindow", u"Menu", None))
         self.menuHelp.setTitle(QCoreApplication.translate("MainWindow", u"Help", None))
