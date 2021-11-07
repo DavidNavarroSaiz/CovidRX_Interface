@@ -30,6 +30,10 @@ class Loading():
     def stop(self):
         self.movie.stop()
         self.close()
+
+
+
+
 class Events():
     """
     Set the respective events for the buttons
@@ -67,18 +71,21 @@ class Events():
             pixmap_resized = imagePixmap.scaled(320, 280, QtCore.Qt.KeepAspectRatio)
             self.window.label_4.setPixmap(pixmap_resized)
             self.window.label_4.setScaledContents(True)
-            self.window.Filename.setObjectName(self.filename)  
             self.window.pushButtonRun.setEnabled(True)
+            self.pixmap_ok  =QtGui.QPixmap('./views/icons/done.png')
+            self.ok_resized = self.pixmap_ok.scaled(30, 30, QtCore.Qt.KeepAspectRatio)
+            self.window.done_load.setPixmap(self.ok_resized)
         except:
             QMessageBox.about(None,"Error",'Error Loading Image')
 
     
-    
+
 
     def save_image(self):
         try:
             self.filename,_ = QtWidgets.QFileDialog.getSaveFileName(None,"Save image file", "image.png","image files(*.jpg *.jpeg *.png)")
             self.window.label_5.pixmap().save(self.filename)
+            self.window.done_saved.setPixmap(self.ok_resized)
         except:
             QMessageBox.about(None,"Error",'Error Saving the Image')
 
@@ -133,12 +140,15 @@ class Events():
     # def __init__(self,window):
     #     super().__init__()
     #     self.window = window
-#
+# #   
+
+        
     def run(self):
         """
         Evaluate a list of models
         
         """
+
         self.probabilities_normal = []
         self.probabilities_viral = []
         self.probabilities_covid = []
@@ -219,7 +229,8 @@ class Events():
             self.display_results()
         except:
             QMessageBox.about(None,"Error","Error Calculating final results")
-
+    
+    
     def display_results(self):
         try: 
             result = overlay_mask(to_pil_image(self.rgbimage), to_pil_image(self.FinalActivationMap, mode='F'), alpha=0.7)
@@ -300,6 +311,9 @@ class Events():
             self.window.progressBar_3.setValue(self.covid_prob)
             # cv2.imshow('ImageWindow', self.rgbimage)
             # cv2.waitKey()
+            # pixmap_ok  =QtGui.QPixmap('./views/icons/done.png')
+            # ok_resized = pixmap_ok.scaled(30, 30, QtCore.Qt.KeepAspectRatio)
+            self.window.done_run.setPixmap(self.ok_resized)
             self.popup()
         except:
             QMessageBox.about(None,"Error","Error showing results")

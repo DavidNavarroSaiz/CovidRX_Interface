@@ -43,7 +43,7 @@ class Ui_MainWindow(object):
         self.actionAlexNet = QAction(MainWindow)
         self.actionAlexNet.setObjectName(u"actionAlexNet")
         self.actionAlexNet.setCheckable(True)
-        self.actionAlexNet.setChecked(True)
+        self.actionAlexNet.setChecked(False)
         self.actionEfficientNet = QAction(MainWindow)
         self.actionEfficientNet.setObjectName(u"actionEfficientNet")
         self.actionEfficientNet.setCheckable(True)
@@ -51,7 +51,7 @@ class Ui_MainWindow(object):
         self.actionInceptionV3 = QAction(MainWindow)
         self.actionInceptionV3.setObjectName(u"actionInceptionV3")
         self.actionInceptionV3.setCheckable(True)
-        self.actionInceptionV3.setChecked(True)
+        self.actionInceptionV3.setChecked(False)
         self.actionResNet_2 = QAction(MainWindow)
         self.actionResNet_2.setObjectName(u"actionResNet_2")
         self.actionResNet_2.setCheckable(True)
@@ -84,29 +84,133 @@ class Ui_MainWindow(object):
         self.frameDisplayImage.setFrameShadow(QFrame.Raised)
         self.gridLayout = QGridLayout(self.frameDisplayImage)
         self.gridLayout.setObjectName(u"gridLayout")
+        self.verticalLayout_4 = QVBoxLayout()
+        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        self.label_5 = QLabel(self.frameDisplayImage)
+        self.label_5.setObjectName(u"label_5")
+        self.label_5.setMinimumSize(QSize(371, 381))
+        self.label_5.setStyleSheet(u"background-color: rgb(255, 255, 255);")
+
+        self.verticalLayout_4.addWidget(self.label_5)
+
+        self.horizontalLayout_5 = QHBoxLayout()
+        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
+        self.horizontalSpacer_7 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_5.addItem(self.horizontalSpacer_7)
+
+        self.done_run = QLabel(self.frameDisplayImage)
+        self.done_run.setObjectName(u"done_run")
+
+        self.horizontalLayout_5.addWidget(self.done_run)
+
+        self.pushButtonRun = QPushButton(self.frameDisplayImage)
+        self.pushButtonRun.setObjectName(u"pushButtonRun")
+        font1 = QFont()
+        font1.setPointSize(12)
+        font1.setBold(True)
+        font1.setWeight(75)
+        self.pushButtonRun.setFont(font1)
+
+        self.horizontalLayout_5.addWidget(self.pushButtonRun)
+
+        self.horizontalSpacer_8 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_5.addItem(self.horizontalSpacer_8)
+
+
+        self.verticalLayout_4.addLayout(self.horizontalLayout_5)
+
+
+        self.gridLayout.addLayout(self.verticalLayout_4, 0, 1, 1, 1)
+
+        self.verticalLayout_3 = QVBoxLayout()
+        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.label_4 = QLabel(self.frameDisplayImage)
+        self.label_4.setObjectName(u"label_4")
+        self.label_4.setMinimumSize(QSize(371, 381))
+        self.label_4.setStyleSheet(u"background-color: rgb(255, 255, 255);")
+
+        self.verticalLayout_3.addWidget(self.label_4)
+
+        self.horizontalLayout_4 = QHBoxLayout()
+        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
+        self.horizontalSpacer_5 = QSpacerItem(30, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_4.addItem(self.horizontalSpacer_5)
+
+        self.done_load = QLabel(self.frameDisplayImage)
+        self.done_load.setObjectName(u"done_load")
+
+        self.horizontalLayout_4.addWidget(self.done_load)
+
+        self.pushload = QPushButton(self.frameDisplayImage)
+        self.pushload.setObjectName(u"pushload")
+        self.pushload.setEnabled(True)
+        font2 = QFont()
+        font2.setPointSize(12)
+        font2.setStrikeOut(False)
+        self.pushload.setFont(font2)
+        self.pushload.setFlat(False)
+
+        self.horizontalLayout_4.addWidget(self.pushload)
+
+        self.horizontalSpacer_6 = QSpacerItem(30, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_4.addItem(self.horizontalSpacer_6)
+
+
+        self.verticalLayout_3.addLayout(self.horizontalLayout_4)
+
+
+        self.gridLayout.addLayout(self.verticalLayout_3, 0, 0, 1, 1)
+
         self.frame = QFrame(self.frameDisplayImage)
         self.frame.setObjectName(u"frame")
         self.frame.setFrameShape(QFrame.StyledPanel)
         self.frame.setFrameShadow(QFrame.Raised)
         self.gridLayout_4 = QGridLayout(self.frame)
         self.gridLayout_4.setObjectName(u"gridLayout_4")
-        self.SaveButton = QPushButton(self.frame)
-        self.SaveButton.setObjectName(u"SaveButton")
-        font1 = QFont()
-        font1.setPointSize(12)
-        self.SaveButton.setFont(font1)
+        self.label_covid = QLabel(self.frame)
+        self.label_covid.setObjectName(u"label_covid")
+        self.label_covid.setMaximumSize(QSize(150, 50))
+#if QT_CONFIG(tooltip)
+        self.label_covid.setToolTip(u"")
+#endif // QT_CONFIG(tooltip)
+        self.label_covid.setAlignment(Qt.AlignBottom|Qt.AlignHCenter)
+        self.label_covid.setWordWrap(False)
 
-        self.gridLayout_4.addWidget(self.SaveButton, 0, 1, 1, 1)
+        self.gridLayout_4.addWidget(self.label_covid, 0, 2, 1, 1)
+
+        self.universidad = QLabel(self.frame)
+        self.universidad.setObjectName(u"universidad")
+        self.universidad.setMaximumSize(QSize(400, 50))
+        self.universidad.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignTop)
+
+        self.gridLayout_4.addWidget(self.universidad, 1, 2, 1, 1)
+
+        self.FinalPrediction = QLabel(self.frame)
+        self.FinalPrediction.setObjectName(u"FinalPrediction")
+        self.FinalPrediction.setMaximumSize(QSize(16777215, 30))
+        font3 = QFont()
+        font3.setPointSize(12)
+        self.FinalPrediction.setFont(font3)
+
+        self.gridLayout_4.addWidget(self.FinalPrediction, 2, 2, 1, 1)
 
         self.gridLayout_3 = QGridLayout()
         self.gridLayout_3.setObjectName(u"gridLayout_3")
-        self.gridLayout_3.setSizeConstraint(QLayout.SetNoConstraint)
+        self.gridLayout_3.setSizeConstraint(QLayout.SetMinimumSize)
+        self.gridLayout_3.setVerticalSpacing(29)
         self.gridLayout_3.setContentsMargins(-1, -1, 0, -1)
         self.verticalLayout_5 = QVBoxLayout()
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
+        self.verticalLayout_5.setSizeConstraint(QLayout.SetMinimumSize)
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalLayout_2.setSizeConstraint(QLayout.SetMinimumSize)
         self.verticalLayout = QVBoxLayout()
+        self.verticalLayout.setSpacing(9)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.progressBar = QProgressBar(self.frame)
         self.progressBar.setObjectName(u"progressBar")
@@ -133,21 +237,21 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.label_2 = QLabel(self.frame)
         self.label_2.setObjectName(u"label_2")
-        font2 = QFont()
-        font2.setPointSize(11)
-        self.label_2.setFont(font2)
+        font4 = QFont()
+        font4.setPointSize(11)
+        self.label_2.setFont(font4)
 
         self.verticalLayout_2.addWidget(self.label_2)
 
         self.label_6 = QLabel(self.frame)
         self.label_6.setObjectName(u"label_6")
-        self.label_6.setFont(font2)
+        self.label_6.setFont(font4)
 
         self.verticalLayout_2.addWidget(self.label_6)
 
         self.label_7 = QLabel(self.frame)
         self.label_7.setObjectName(u"label_7")
-        self.label_7.setFont(font2)
+        self.label_7.setFont(font4)
 
         self.verticalLayout_2.addWidget(self.label_7)
 
@@ -161,113 +265,31 @@ class Ui_MainWindow(object):
         self.gridLayout_3.addLayout(self.verticalLayout_5, 1, 0, 1, 1)
 
 
-        self.gridLayout_4.addLayout(self.gridLayout_3, 2, 0, 1, 3)
+        self.gridLayout_4.addLayout(self.gridLayout_3, 3, 0, 1, 4)
 
-        self.Filename = QLabel(self.frame)
-        self.Filename.setObjectName(u"Filename")
+        self.done_saved = QLabel(self.frame)
+        self.done_saved.setObjectName(u"done_saved")
 
-        self.gridLayout_4.addWidget(self.Filename, 4, 0, 1, 1)
+        self.gridLayout_4.addWidget(self.done_saved, 0, 0, 1, 1)
 
-        self.FinalPrediction = QLabel(self.frame)
-        self.FinalPrediction.setObjectName(u"FinalPrediction")
-        self.FinalPrediction.setMaximumSize(QSize(16777215, 30))
-        self.FinalPrediction.setFont(font1)
+        self.SaveButton = QPushButton(self.frame)
+        self.SaveButton.setObjectName(u"SaveButton")
+        sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.SaveButton.sizePolicy().hasHeightForWidth())
+        self.SaveButton.setSizePolicy(sizePolicy)
+        self.SaveButton.setFont(font3)
 
-        self.gridLayout_4.addWidget(self.FinalPrediction, 1, 1, 1, 1)
+        self.gridLayout_4.addWidget(self.SaveButton, 4, 2, 1, 1)
 
         self.logo_covid = QLabel(self.frame)
         self.logo_covid.setObjectName(u"logo_covid")
 
         self.gridLayout_4.addWidget(self.logo_covid, 4, 1, 1, 1)
 
-        self.universidad = QLabel(self.frame)
-        self.universidad.setObjectName(u"universidad")
-
-        self.gridLayout_4.addWidget(self.universidad, 3, 1, 1, 1)
-
 
         self.gridLayout.addWidget(self.frame, 0, 2, 1, 1)
-
-        self.verticalLayout_3 = QVBoxLayout()
-        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
-        self.label_4 = QLabel(self.frameDisplayImage)
-        self.label_4.setObjectName(u"label_4")
-        self.label_4.setMinimumSize(QSize(371, 381))
-        self.label_4.setStyleSheet(u"background-color: rgb(255, 255, 255);")
-
-        self.verticalLayout_3.addWidget(self.label_4)
-
-        self.horizontalLayout_4 = QHBoxLayout()
-        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
-        self.horizontalSpacer_5 = QSpacerItem(30, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.horizontalLayout_4.addItem(self.horizontalSpacer_5)
-
-        self.done_load = QLabel(self.frameDisplayImage)
-        self.done_load.setObjectName(u"done_load")
-
-        self.horizontalLayout_4.addWidget(self.done_load)
-
-        self.pushload = QPushButton(self.frameDisplayImage)
-        self.pushload.setObjectName(u"pushload")
-        self.pushload.setEnabled(True)
-        font3 = QFont()
-        font3.setPointSize(12)
-        font3.setStrikeOut(False)
-        self.pushload.setFont(font3)
-        self.pushload.setFlat(False)
-
-        self.horizontalLayout_4.addWidget(self.pushload)
-
-        self.horizontalSpacer_6 = QSpacerItem(30, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.horizontalLayout_4.addItem(self.horizontalSpacer_6)
-
-
-        self.verticalLayout_3.addLayout(self.horizontalLayout_4)
-
-
-        self.gridLayout.addLayout(self.verticalLayout_3, 0, 0, 1, 1)
-
-        self.verticalLayout_4 = QVBoxLayout()
-        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
-        self.label_5 = QLabel(self.frameDisplayImage)
-        self.label_5.setObjectName(u"label_5")
-        self.label_5.setMinimumSize(QSize(371, 381))
-        self.label_5.setStyleSheet(u"background-color: rgb(255, 255, 255);")
-
-        self.verticalLayout_4.addWidget(self.label_5)
-
-        self.horizontalLayout_5 = QHBoxLayout()
-        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
-        self.horizontalSpacer_7 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.horizontalLayout_5.addItem(self.horizontalSpacer_7)
-
-        self.done_run = QLabel(self.frameDisplayImage)
-        self.done_run.setObjectName(u"done_run")
-
-        self.horizontalLayout_5.addWidget(self.done_run)
-
-        self.pushButtonRun = QPushButton(self.frameDisplayImage)
-        self.pushButtonRun.setObjectName(u"pushButtonRun")
-        font4 = QFont()
-        font4.setPointSize(12)
-        font4.setBold(True)
-        font4.setWeight(75)
-        self.pushButtonRun.setFont(font4)
-
-        self.horizontalLayout_5.addWidget(self.pushButtonRun)
-
-        self.horizontalSpacer_8 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.horizontalLayout_5.addItem(self.horizontalSpacer_8)
-
-
-        self.verticalLayout_4.addLayout(self.horizontalLayout_5)
-
-
-        self.gridLayout.addLayout(self.verticalLayout_4, 0, 1, 1, 1)
 
 
         self.horizontalLayout.addWidget(self.frameDisplayImage)
@@ -329,20 +351,21 @@ class Ui_MainWindow(object):
         self.actionXception.setText(QCoreApplication.translate("MainWindow", u"Xception", None))
         self.labelLogoFlir.setText("")
         self.labelLogo.setText("")
-        self.SaveButton.setText(QCoreApplication.translate("MainWindow", u"     Save HeatMap     ", None))
-        self.label_2.setText(QCoreApplication.translate("MainWindow", u"  Normal  ", None))
-        self.label_6.setText(QCoreApplication.translate("MainWindow", u"  Pneumonia", None))
-        self.label_7.setText(QCoreApplication.translate("MainWindow", u"  Covid", None))
-        self.Filename.setText("")
-        self.FinalPrediction.setText("")
-        self.logo_covid.setText("")
-        self.universidad.setText(QCoreApplication.translate("MainWindow", u"UNIVERSIDAD DEL MAGDALENA", None))
-        self.label_4.setText("")
-        self.done_load.setText("")
-        self.pushload.setText(QCoreApplication.translate("MainWindow", u"      Load Image      ", None))
         self.label_5.setText("")
         self.done_run.setText("")
         self.pushButtonRun.setText(QCoreApplication.translate("MainWindow", u"     Run diagnosis     ", None))
+        self.label_4.setText("")
+        self.done_load.setText("")
+        self.pushload.setText(QCoreApplication.translate("MainWindow", u"      Load Image      ", None))
+        self.label_covid.setText(QCoreApplication.translate("MainWindow", u"COVID- RX", None))
+        self.universidad.setText(QCoreApplication.translate("MainWindow", u"Universidad del Magdalena-Colombia", None))
+        self.FinalPrediction.setText("")
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"  Normal  ", None))
+        self.label_6.setText(QCoreApplication.translate("MainWindow", u"  Pneumonia", None))
+        self.label_7.setText(QCoreApplication.translate("MainWindow", u"  Covid", None))
+        self.done_saved.setText("")
+        self.SaveButton.setText(QCoreApplication.translate("MainWindow", u"     Save HeatMap     ", None))
+        self.logo_covid.setText("")
         self.menuMen.setTitle(QCoreApplication.translate("MainWindow", u"Menu", None))
         self.menuHelp.setTitle(QCoreApplication.translate("MainWindow", u"Help", None))
         self.menuModels.setTitle(QCoreApplication.translate("MainWindow", u"Models", None))

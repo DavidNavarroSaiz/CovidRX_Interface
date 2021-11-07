@@ -6,7 +6,7 @@ class StylesMainWindow ():
         # self.widget.window = mainWindow
         self.set_colors()
         self.set_theme()
-        # self.setIcons()
+        self.setIcons()
         
     def set_colors(self):
         self.hover_button = '#474747'
@@ -18,13 +18,19 @@ class StylesMainWindow ():
         self.secondaryText = '#000'
         self.disbled_buttons = '#E3E3E3'
         
-    # def setIcons(self):
+    def setIcons(self):
+        pixmap_logo  =QtGui.QPixmap('./views/icons/icon2.png')
+        logo_resized = pixmap_logo.scaled(70, 70, QtCore.Qt.KeepAspectRatio)
+        self.window.logo_covid.setPixmap(logo_resized)
+        
+        # self.window.CovidRx.
         
     #     self.window.pushload.setIcon(
     #         QtGui.QPixmap('./views/icons/load_image.png'))
     #     self.window.pushload.setIconSize(QtCore.QSize(55, 55))
     #     self.window.pushload.setToolTip('load image')
     #     self.window.pushload.setText("")
+    
     def set_theme(self):
         styleWindow = """
             QWidget{
@@ -108,9 +114,23 @@ class StylesMainWindow ():
         style_model_menu = """
             background: """ + self.frame_image + """;
         """
-      
+        style_covidRX = """
+            background: """ + self.frame_image + """;
+            color: #557c3e;
+            font-size: 18pt;
+            text-transform: uppercase;
+            font-weight: bold;
+        """
+        style_Umag= """
+            background: """ + self.frame_image + """;
+            font-size: 9pt;
+            font-weight: bold;
+        """
         self.window.label_4.setStyleSheet(style_frame_image)
         self.window.label_5.setStyleSheet(style_frame_image)
+        
+        self.window.label_covid.setStyleSheet(style_covidRX)
+        self.window.universidad.setStyleSheet(style_Umag)
         # self.window.listWidget.setStyleSheet( 
         #         "QListWidget::item {"
         #             "border-style: solid;" 
