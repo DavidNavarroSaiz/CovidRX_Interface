@@ -24,6 +24,8 @@ A partir de los datos libres encontrados en diferentes bases de datos, se recopi
 * mas de 11000 imagenes ed personas con pneumonia(diferente de covid)
 
 Los datasets usados se encuentran a continuacion:
+
+
 https://github.com/samxmot/RANDGAN - Randomized Generative Adversarial Network for Detection of COVID-19 in Chest X-ray
 
 https://github.com/jdariasl/COVIDNET - Artificial Intelligence applied to chest X-Ray images for the automatic detection of COVID-19. A thoughtful evaluation approach
