@@ -267,11 +267,6 @@ class Ui_MainWindow(object):
 
         self.gridLayout_4.addLayout(self.gridLayout_3, 3, 0, 1, 4)
 
-        self.done_saved = QLabel(self.frame)
-        self.done_saved.setObjectName(u"done_saved")
-
-        self.gridLayout_4.addWidget(self.done_saved, 0, 0, 1, 1)
-
         self.SaveButton = QPushButton(self.frame)
         self.SaveButton.setObjectName(u"SaveButton")
         sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
@@ -286,7 +281,12 @@ class Ui_MainWindow(object):
         self.logo_covid = QLabel(self.frame)
         self.logo_covid.setObjectName(u"logo_covid")
 
-        self.gridLayout_4.addWidget(self.logo_covid, 4, 1, 1, 1)
+        self.gridLayout_4.addWidget(self.logo_covid, 0, 1, 1, 1)
+
+        self.done_saved = QLabel(self.frame)
+        self.done_saved.setObjectName(u"done_saved")
+
+        self.gridLayout_4.addWidget(self.done_saved, 4, 1, 1, 1)
 
 
         self.gridLayout.addWidget(self.frame, 0, 2, 1, 1)
@@ -363,9 +363,9 @@ class Ui_MainWindow(object):
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"  Normal  ", None))
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"  Pneumonia", None))
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"  Covid", None))
-        self.done_saved.setText("")
         self.SaveButton.setText(QCoreApplication.translate("MainWindow", u"     Save HeatMap     ", None))
         self.logo_covid.setText("")
+        self.done_saved.setText("")
         self.menuMen.setTitle(QCoreApplication.translate("MainWindow", u"Menu", None))
         self.menuHelp.setTitle(QCoreApplication.translate("MainWindow", u"Help", None))
         self.menuModels.setTitle(QCoreApplication.translate("MainWindow", u"Models", None))
