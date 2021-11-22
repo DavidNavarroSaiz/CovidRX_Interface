@@ -1,16 +1,19 @@
 <h1 align="center">COVID RX </h1>
 <h1 align="center">Covid and pneumonia diagnosis using Xray images </h1>
 <h1 align="center"> Desktop and Web App</h1>
-
+<p>
     Radiometric images  have become a very important tool to detect and diagnose COVID-19, due that most of the COVID-19 cases have similar features, just like ground glass opacity and/or consolidation.
-
+</p>
+<p>
     Pulmonary lesions have been detected in computer tomography(CT) studies from even before the onset of symptoms until day 14 after the onset of symptoms. However, to date, most diagnostic tools based on CT are developed in hospitals with expensive equipment and where a high experience of radiologists is required.
-
+</p>
+<p>
     Therefore, due to the wide availability of chest x-rays in various health care treatments, they are an attractive option for a quick, accurate and less expensive diagnosis of COVID-19. Although RT images can detect suspicious cases early, the images of various viral pneumonias are similar and tend to be confused with other respiratory infections and inflammations, which is why diagnosis through the use of X-rays (RX) can leave a misdiagnosis
    So, for the X-ray tool to be adequate, it requires a team of expert radiologists who are able to identify and differentiate infections, which is the greatest difficulty with this technology.
-   
+   </p>
+   <p>
     Currently, many biomedical health problems are using solutions based on artificial intelligence, the use of Convolution Neural Networks (CNN) has proven to be an extremely beneficial tool to extract characteristics from the image and to perform learning of these characteristics to perform image classification. . Deep learning techniques in chest radiographs are gaining popularity and show promising results in different applications, with results that are similar to that of a human expert when solving tasks such as classification in lung diseases, detection of metastases in breast cancer, lesions of the skin, identify diabetic retinopathy, Alzheimer's, reconstruction by magnetic resonance imaging and computed tomography. Detecting COVID-19 through imaging is one of the biggest challenges around the world.
-
+</p>
 <p>
 Numerous methods for the detection of COVID-19 based on RT images and different architectures have been published in recent months with accuracies of more than 90%.
 </p>
