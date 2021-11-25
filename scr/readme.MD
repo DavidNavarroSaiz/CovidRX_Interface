@@ -80,7 +80,7 @@
 <p> You can click now Run Diagnosis button, and wait a moment until the diagnosis is completed, it will display a message, you can read your final diagnosis and then click OK </p>
 
 <div align="center">
-    <img src="./resources/images/diagnosis2.jpg" width="800"><img>
+    <img src="./resources/images/diagnosis2.JPG" width="800"><img>
 </div>
 
 <p> A heat map is displayed, it shows the main zones activated by the Convolutional neural network layers. It can be an indicator about what are the most affected zones in the person. however, it is not a trustable indicator and it is not based on qualitative methods, it is just an analysis about the activation map of the neural networks, so does not necessarily represent valid medical information</p>
@@ -90,7 +90,7 @@
 
 
 <div align="center">
-    <img src="./resources/images/Diagnosis.jpg" width="800"><img>
+    <img src="./resources/images/Diagnosis.JPG" width="800"><img>
 </div>
 
 
