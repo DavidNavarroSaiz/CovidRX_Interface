@@ -17,13 +17,16 @@
 <p>
 Numerous methods for the detection of COVID-19 based on RT images and different architectures have been published in recent months with accuracies of more than 90%.
 </p>
-<p>
-A partir de los datos libres encontrados en diferentes bases de datos, se recopilo un dataset compuesto por:
-* mas de 10000 imagenes de COVID-19
-* mas de 15000 imagenes de personas en buen estado de salud 
-* mas de 11000 imagenes ed personas con pneumonia(diferente de covid)
 
-Los datasets usados se encuentran a continuacion:
+
+<p>
+
+From the free data found in different databases, a dataset composed of:
+* more than 10,000 images of COVID-19
+* more than 15,000 images of people in good health
+* more than 11000 images of people with pneumonia (different from covid)
+
+The datasets used are below:
 
 
 https://github.com/samxmot/RANDGAN - Randomized Generative Adversarial Network for Detection of COVID-19 in Chest X-ray
@@ -44,7 +47,8 @@ https://academictorrents.com/details/557481faacd824c83fbf57dcf7b6da9383b3235a
 </p>
 
 <p>
-    Utilizando Pytorch se entrenaron diferentes modelos y se eligieron los 10 con mejor performance:
+    Using Pytorch, different models were trained and the 10 with the best performance were chosen:
+
     Vgg19
     Densenet
     Mobilenet
@@ -58,6 +62,6 @@ https://academictorrents.com/details/557481faacd824c83fbf57dcf7b6da9383b3235a
 </p>
 
 <p>
-    Se creo una interfaz grafica utilizando Qt y se realizo una pagina web, que permite al usuario cargar una imagen radiomedica del torax y utilizando las redes entrenadas se diagnostica el estado del paciente.
+A graphic interface was created using Qt and a web page was created, which allows the user to upload a radiomedical image of the thorax and using the trained networks to diagnose the patient's condition.
 </p>
 
