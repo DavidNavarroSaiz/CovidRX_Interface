@@ -76,6 +76,7 @@
 <div align="center">
     <img src="./resources/images/Load_image.jpg" width="800"><img>
 </div>
+
 <p> You can click now Run Diagnosis button, and wait a moment until the diagnosis is completed, it will display a message, you can read your final diagnosis and then click OK </p>
 
 <div align="center">
@@ -87,9 +88,11 @@
 
 <p> On the right side of the application you can check the probabilities to be Normal, to have pneumonia or to have covid. If the bar is green it means that you have low probabilities( less than 30%), if it is yellow it is a high-mid probability(30% - 60%) and if the bar is red it means that it is a high probability(higher than 60%) </p>
 
+
 <div align="center">
     <img src="./resources/images/Diagnosis.jpg" width="800"><img>
 </div>
+
 
 
 <p> The user can save the heatmap clicking Save heatmap button, it will appear an emerging window, where you can choose the location and the name to save the heatmap </p>
