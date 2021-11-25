@@ -12,19 +12,24 @@
 ```
     python3.8 -m venv <env_name>
 ```
+
 <p>
     if you are using anaconda you just can write the following code line:
 </p>
+
 ```
     conda create --name <env_name> python=3.8
 ```
 
 <p>Activating the virtual environment:<p>
 
+
 ```
     cd <env_name> \Scripts\activate.bat
 ```
+
 <p>Anaconda:<p>
+
 ```
     conda activate <env_name>
 ```
@@ -33,6 +38,7 @@
 
 
 <h3>Download Repository</h3>
+
 <p>it can be downloaded using:</p>
 
 ```
@@ -40,6 +46,7 @@
 ```
 
 <h3>Install libraries</h3>
+
 
 ```
     pip install -r requirements.txt
@@ -54,10 +61,12 @@
 
 <p>Exectuing the desktop app</p>
 
+
 ```
     cd src
     python app.py
 ```
+
 <div align="center">
     <img src="./resources/images/app.jpg" width="800"><img>
 </div>
