@@ -54,7 +54,16 @@
     pip install -r requirements.txt
 ```
 
+<h3>getting the weights:</h3>
+<p> Go for the following link:
 
+https://drive.google.com/drive/folders/1RlPBuJFChoFVbmKw5xOsJNvgbbWY4JUK?usp=sharing
+
+
+And download the weights, copy the folder "final_models" into the following path inside your project: "./scr/resources/saved_models"
+
+
+</p>
 
 
 
