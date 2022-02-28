@@ -45,10 +45,12 @@
     git clone https://github.com/DavidNavarroSaiz/CovidRX_Interface.git
 ```
 
-<h3>Install libraries</h3>
+<h3>Installing the necessary libraries</h3>
+<p>in your environment run the following commands: </p>
 
-
-```
+```    
+    
+    pip install pytorch==1.7.1 torchvision==0.8.2 torchaudio==0.8.1 cpuonly -c pytorch
     pip install -r requirements.txt
 ```
 
