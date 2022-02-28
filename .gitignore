@@ -3,8 +3,11 @@ scr/controllers/images/
 scr/controllers/saved_models
 scr/resources/saved_models/vgg19_final.pt
 scr/resources/saved_models/vgg19.pt
+scr/controllers/sites/__pycache__
+scr/controllers/__pycache__
+
 # Byte-compiled / optimized / DLL files
-__pycache__/
+*__pycache__/
 *.py[cod]
 
 # C extensions
