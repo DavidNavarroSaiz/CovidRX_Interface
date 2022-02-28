@@ -1,7 +1,6 @@
 venv
 scr/controllers/images/
 scr/controllers/saved_models
-
 scr/resources/saved_models/vgg19_final.pt
 scr/resources/saved_models/vgg19.pt
 # Byte-compiled / optimized / DLL files
