@@ -1,6 +1,9 @@
 <h1 align="center">COVID RX </h1>
 <h1 align="center">Covid and pneumonia diagnosis using Xray images </h1>
 <h1 align="center"> Desktop and Web App</h1>
+
+<p> Before Starting, if you want to watch the final result and know how to run this project in your computer please check the scr folder... Now lets continue
+ </p>   
 <p>
     Radiometric images  have become a very important tool to detect and diagnose COVID-19, due that most of the COVID-19 cases have similar features, just like ground glass opacity and/or consolidation.
 </p>
