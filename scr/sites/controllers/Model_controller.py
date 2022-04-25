@@ -65,7 +65,7 @@ class ModelController():
             self.target_layers  ='blocks'
             
         if(self.model_name == "InceptionV3"):
-            path = dir_path + "/resources/saved_models/final_models/InceptionV3_3_8_0.95.pt"
+            path = dir_path + "/resources/saved_models/final_models/InceptionV3_5_26_0_0.97.pt"
             self.model = torchvision.models.inception_v3()
             self.model.AuxLogits.fc = torch.nn.Linear(768, 3)
             self.model.fc = torch.nn.Linear(2048, 3)
@@ -78,10 +78,10 @@ class ModelController():
             self.target_layers  ='layer4'
             
         if (self.model_name == "Rexnet"):
-            path = dir_path + "/resources/saved_models/final_models/rexnet_3_7_7800_0.95.pt"
-            self.model = timm.create_model('rexnet_100')
-            self.model.classifier = torch.nn.Linear(in_features=2560, out_features=3)
-            self.target_layers  ='features'
+            path = dir_path + "/resources/saved_models/final_models/Rexnet_4_8_1800_0.96.pt"
+            self.model = timm.create_model('ens_adv_inception_resnet_v2')
+            self.model.classifier = torch.nn.Linear(in_features=1280, out_features=3)
+            self.target_layers = 'block8'
             
         self.model.eval()
         # self.model.to('cpu')
@@ -126,10 +126,11 @@ class ModelController():
         # self.prediction = labels[np.argmax(self.output.tolist())]
         self.prob = F.softmax(self.output, dim=1).detach().numpy()[0]
         
-        print(self.prob)
+
         self.prob_normal = self.prob[0]
         self.prob_viral = self.prob[1]
         self.prob_covid = self.prob[2]
+        print('normal: ',self.prob_normal,' Viral: ',self.prob_viral, ' Covid: ',self.prob_covid)
         # top_p, top_class = self.prob.topk(1, dim = 1)
         # print(self.output)
         # print(self.output.tolist())

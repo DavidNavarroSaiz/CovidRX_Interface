@@ -1,9 +1,6 @@
 venv
 scr/controllers/images/
-scr/controllers/saved_models
 scr/resources/images/
-scr/resources/saved_models/*
-saved_models
 
 
 # Byte-compiled / optimized / DLL files

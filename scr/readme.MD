@@ -49,8 +49,8 @@
 <p>in your environment run the following commands: </p>
 
 ```    
-    
-    pip install pytorch==1.7.1 torchvision==0.8.2 torchaudio==0.8.1 cpuonly -c pytorch
+    conda install pip
+    pip install torch==1.7.1+cpu torchvision==0.8.2+cpu -f https://download.pytorch.org/whl/torch_stable.html
     pip install -r requirements.txt
 ```
 
@@ -60,7 +60,7 @@
 https://drive.google.com/drive/folders/1RlPBuJFChoFVbmKw5xOsJNvgbbWY4JUK?usp=sharing
 
 
-copy the complete folder into the following path inside your project: "./scr/resources/saved_models"
+copy the complete .pt files into the following path inside your project: "./scr/resources/saved_models/final_models" and in the folder "./scr/sites/resources/saved_models/final_models"
 
 
 </p>
